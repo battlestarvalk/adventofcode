@@ -11,16 +11,25 @@ pt1Array.filter(function(x) {return x === "#"}).length
 
 ----
 
-var movementGrid = [1,3,5,7],
-    pt2Array = [],
-    lineArray = [];
-movementGrid.forEach(function(slope) {
-    expanded_test_input.forEach(function(trees, line) {
+var slopeX = [1,1,1,1,2],
+    slopeY = [1,3,5,7,1],
+    pt2Array = []
+    trees = 0;
 
-        var goalIndex = trees.charAt( (line * slope) % trees.length ) 
+slopeX.forEach(function(down) {
+    slopeY.forEach(function(right) {
+        for (i = down; i < day3_input.length; i+= right) {
 
-        pt2Array.push(goalIndex)
+            let impact = day3_input[i][right % day3_input[i].length]
+            if(impact === "#") {
+                trees++
+            }
+        
+        }
 
-    })
-    lineArray.push(pt2Array.filter(function(hash) { return hash === "#" }).length)
+})
+pt2Array.push(trees)
+})
+pt2Array.reduce(function(accumulator, currentValue) {
+    return accumulator * currentValue
 })
