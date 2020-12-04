@@ -11,25 +11,34 @@ pt1Array.filter(function(x) {return x === "#"}).length
 
 ----
 
-var slopeX = [1,1,1,1,2],
-    slopeY = [1,3,5,7,1],
-    pt2Array = []
-    trees = 0;
+var impactNo = [],
+    answer = [];
 
-slopeX.forEach(function(down) {
-    slopeY.forEach(function(right) {
-        for (i = down; i < day3_input.length; i+= right) {
+function slope (down, right) {
 
-            let impact = day3_input[i][right % day3_input[i].length]
-            if(impact === "#") {
-                trees++
-            }
-        
-        }
+for (let i = 0; i < day3_input.length; i += right) {
 
-})
-pt2Array.push(trees)
-})
-pt2Array.reduce(function(accumulator, currentValue) {
+    var goalIndex = day3_input[i].charAt( (i * right) % day3_input[i].length );
+    if(goalIndex === "#") {
+        impactNo.push(goalIndex)
+}
+
+i += down
+
+}
+}
+
+slope(1,1)
+answer.push(impactNo.length)
+slope(1,3)
+answer.push(impactNo.length)
+slope(1,5)
+answer.push(impactNo.length)
+slope(1,7)
+answer.push(impactNo.length)
+slope(2,1)
+answer.push(impactNo.length)
+
+answer.reduce(function(accumulator, currentValue) {
     return accumulator * currentValue
 })
