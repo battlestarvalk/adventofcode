@@ -10,35 +10,26 @@ day3_input.forEach(function(trees, line) {
 pt1Array.filter(function(x) {return x === "#"}).length
 
 ----
-
-var impactNo = [],
-    answer = [];
-
 function slope (down, right) {
 
-for (let i = 0; i < day3_input.length; i += right) {
+let trees = 0;
 
-    var goalIndex = day3_input[i].charAt( (i * right) % day3_input[i].length );
-    if(goalIndex === "#") {
-        impactNo.push(goalIndex)
+for (let i = 0; i < day3_input.length; i+= down) {
+
+        var impactCheck = day3_input[i].charAt( i * right % day3_input[i].length )
+
+        if (impactCheck === "#") {
+        trees++
+    }
+
 }
 
-i += down
+return trees
 
 }
-}
 
-slope(1,1)
-answer.push(impactNo.length)
-slope(1,3)
-answer.push(impactNo.length)
-slope(1,5)
-answer.push(impactNo.length)
-slope(1,7)
-answer.push(impactNo.length)
-slope(2,1)
-answer.push(impactNo.length)
 
-answer.reduce(function(accumulator, currentValue) {
-    return accumulator * currentValue
-})
+var answer = [slope(1,1), slope(1,3), slope(1,5), slope(1,7), slope(2,1)];
+
+answer.reduce(function(a, b) {return a*b})
+
