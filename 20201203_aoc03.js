@@ -16,7 +16,7 @@ let trees = 0;
 
 for (let i = 0; i < day3_input.length; i+= down) {
 
-        var impactCheck = day3_input[i].charAt( i * right % day3_input[i].length )
+        var impactCheck = day3_input[i].charAt( (i * right) % day3_input[i].length )
 
         if (impactCheck === "#") {
         trees++
