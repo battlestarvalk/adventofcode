@@ -41,6 +41,7 @@ Math.max(...boardingPass)
 // part 2
 
 var sortedBP = [];
+boardingPass.sort()
 for (let i=0; i < boardingPass.length; i++) {
 
     sortedBP.push( [boardingPass[i], boardingPass[i+1] - boardingPass[i]] )
