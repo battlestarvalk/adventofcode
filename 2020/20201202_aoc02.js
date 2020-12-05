@@ -1,8 +1,7 @@
-const input = document.querySelector('pre').textContent.split('\n');
-
-input.pop()
+const input = document.querySelector('pre').textContent.split('\n').slice(0, -1);
 
 var newArray = [];
+
 input.forEach(function(value) {
     var key_value = value.split(": "),
     letter = key_value[0].slice(-1),
@@ -14,15 +13,22 @@ input.forEach(function(value) {
     array = string_value.match(regex_letter);
 
 function array_length (x) {
-if(x === null) { return 0 } else { return x.length}
+    if(x === null) { 
+        return 0 } 
+    else { 
+        return x.length}
 }
 
 function inRange(x, min, max) {
     return ((x-min)*(x-max) <= 0);
 }
 
-newArray.push(inRange(array_length(array), count_value_lower, count_value_higher)); 
+newArray.push(
+    inRange(array_length(array), count_value_lower, count_value_higher)
+    ); 
+    
 });
+
 newArray.filter(function(value) {return value == true}).length
 
 // const regex1 = RegExp('([0-9]{0,2})-([0-9]{0,2}) ([a-z]): ([a-z]+)', 'g');
