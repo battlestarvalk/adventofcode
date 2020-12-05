@@ -37,3 +37,17 @@ day5_input.forEach(function(line){
 })
 
 Math.max(...boardingPass)
+
+// part 2
+
+var sortedBP = [];
+for (let i=0; i < boardingPass.length; i++) {
+
+    sortedBP.push( [boardingPass[i], boardingPass[i+1] - boardingPass[i]] )
+}
+
+var missingSeat = sortedBP.filter(function(missingID) {
+    return missingID[1] === 2
+ })
+
+missingSeat[0][0] + 1
