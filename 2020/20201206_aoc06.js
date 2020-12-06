@@ -50,11 +50,12 @@ let test_input = [
 const input = document.querySelector('pre').textContent.split(/\n{2}/g);
 let day6_input = [];
   input.forEach(function(newline) {
-     day6_input.push(newline.replace(/\n/g, " ").split(" "));
+     day6_input.push(newline.replace(/\n/g, " ").trim());
     })
 
 // test and true input now at the same place
 
+// count character appearance
 function characterAppearance(array, value) {
     var count = 0;
     array.forEach(function(letter) {
@@ -64,18 +65,19 @@ function characterAppearance(array, value) {
     })
     return count;
 }
-console.log(characterAppearance( test_input[3], 'a') )
 
+// create two arrays = group size (how many people in a group) and group answers (each letter answer given by a group)
 let groupSize = [],
         groupAnswers = [];
 
-test_input.forEach(function(groupSplit){
+day6_input.forEach(function(groupSplit){
 
     groupSize.push(groupSplit.split(" ").length);
     groupAnswers.push(groupSplit.replace(/ /g, "").split(""));
 
 })
 
+// sort the group answers and run through the unique values from above
 let groupAnswersSorted = [];
 groupAnswers.forEach(function(sorting) {
     groupAnswersSorted.push(sorting.concat().sort())
@@ -94,14 +96,17 @@ groupAnswersSorted.forEach(function(filterUnique) {
     }
 uniqueArray.push(uniqueValue)
 })
-uniqueArray
 
-// this needs to access at one level lower
-for (let i = 0; i < test_input.length; i++) {
+// Run a for loop - if each unique character in a group appears the same amount of times as the size of the group, then add to a count and push to an array
+let uniqueAnswers = [];
+for (let i = 0; i < day6_input.length; i++) {
 let count = 0;
-	uniqueArray.forEach(function(letter) {
+    uniqueArray[i].forEach(function(letter) {
     if( characterAppearance(groupAnswers[i], letter) === groupSize[i] ) 
         {count++}
 })
-console.log([count, groupAnswers[i], groupSize[i]])
+uniqueAnswers.push(count)
 }
+
+//sum array
+uniqueAnswers.reduce(function (a,b) { return a+b})
