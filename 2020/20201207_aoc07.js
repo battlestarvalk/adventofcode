@@ -20,7 +20,7 @@ const day7_input = document.querySelector('pre').textContent.split('\n').slice(0
 //         colourList = [];
 
 //     colourContains.forEach(function(colourReadout) {
-//         colourList.push([colourReadout[2], colourReadout[1]]);
+//         colourList.push({bagColour: colourReadout[2], bagCount: colourReadout[1]});
 //     })
 
 //     obj[bagColour] = colourList;
@@ -35,11 +35,22 @@ test_input.filter(function(shinyGold) {
    }
 })
 
-test_input.filter(function(expanded) {
-    var bagContents = expanded.split(" bags contain ")[1]
-    second_test.forEach(function (newList) {
-        if( RegExp(bagContents).test(newList) ) {
-            console.log( expanded.split(" bags contain ")[0] )
+// test_input.forEach(function(expanded) {
+//     var bagContents = expanded.split(" bags contain ")[1]
+// 	bagContents
+//     second_test.forEach(function (newList) {
+//         if( RegExp(newList).test(bagContents) ) {
+//             console.log( expanded.split(" bags contain ")[0] )
+//         }
+//     })
+// })
+for(const bag in obj) {
+    obj[bag].forEach( function(goalColour) {
+        for(let i = 0; i < second_test.length; i++) {
+            if( second_test[i] === goalColour["bagColour"] ) {
+                console.log(bag)
+                break;
+            }
         }
-    })
-})
+    })  
+}
