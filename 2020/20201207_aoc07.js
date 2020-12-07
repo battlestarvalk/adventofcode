@@ -44,13 +44,16 @@ test_input.filter(function(shinyGold) {
 //         }
 //     })
 // })
+
+tmp = [];
 for(const bag in obj) {
     obj[bag].forEach( function(goalColour) {
         for(let i = 0; i < second_test.length; i++) {
             if( second_test[i] === goalColour["bagColour"] ) {
-                console.log(bag)
+                tmp.push(bag)
                 break;
             }
         }
     })  
 }
+tmp
