@@ -19,9 +19,8 @@ function breakLoop (inputArray) {
   for(let i = 0; i < inputArray.length;) {
       var instructions = inputArray[i].split(" ");
 
-      if(duplicateFinder === 1) {
+      if(duplicateFinder === 1 || i === inputArray.length) {
           break
-  //       console.log(count)
       }
 
       if(visited.includes(i)) {
@@ -31,20 +30,20 @@ function breakLoop (inputArray) {
       else if (instructions[0] === "nop") {
           visited.push(i)
           i++
-  //         console.log(count, "nop", duplicateFinder)
+//           console.log(count, "nop", i, duplicateFinder)
       }
 
       else if (instructions[0] === "acc") {
           count = count + Number(instructions[1])
           visited.push(i)
           i++
-  //         console.log(count, "acc", duplicateFinder)
+//           console.log(count, "acc", i, duplicateFinder)
       }
 
       else if (instructions[0] === "jmp") {
           visited.push(i)
           i += Number(instructions[1])
-  //         console.log(count, "jmp", duplicateFinder)
+//           console.log(count, "jmp", i, duplicateFinder)
       }
 
   }
