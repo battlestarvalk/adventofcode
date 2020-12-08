@@ -10,56 +10,60 @@ const test_input = ['nop +0',
                     'jmp -4',
                     'acc +6']
 
-function characterAppearance(array, value) {
-    var count = 0;
-    array.forEach(function(letter) {
-    if (letter === value) {
-        return count++
-    } 
-    })
-    return count;
-}
+// function characterAppearance(array, value) {
+//     var count = 0;
+//     array.forEach(function(letter) {
+//     if (letter === value) {
+//         return count++
+//     } 
+//     })
+//     return count;
+// }
 
-var double = test_input.filter(function (instruction) {
-    return characterAppearance(test_input, instruction) === 2
-})[0]
-
-// DO NOT RUN 
+// var double = day8_input.filter(function (instruction) {
+//     return characterAppearance(day8_input, instruction) === 2
+// })[0]
 
 let count = 0,
-    i = 0
-    tmpCount = 0;
-while (tmpCount != 2) 
-{
-    var instructions = test_input[i].split(" ");
+    i = 0,
+    duplicateFinder = 0,
+    visited = [];
+
+for(let i = 0; i < day8_input.length;) {
+    var instructions = day8_input[i].split(" ");
+
+    if(duplicateFinder === 2) {
+        break
+      console.log(count)
+    }
     
-    if(tmpCount === 2) {
-    break;
+//     if(day8_input[i] === double) {
+//         duplicateFinder++
+//     }
+    for(let j = 0; j < (visited.length - 2); j++;) {
+        if(i === visited[j]) {
+            duplicateFinder++
+        }
     }
 
-    if(test_input[i] === "acc +1") {
-        tmpCount++
-        console.log(test_input[i], "tmpCount: ", tmpCount)
-    }
-
-    if(instructions[0] = "nop" && tmpCount < 2) {
+    if (instructions[0] === "nop") {
         i++
-        console.log(test_input[i], "iteration: ", i)
+        visited.push(i)
+        console.log(count, "nop", i, duplicateFinder)
     }
 
-    if(instructions[0] = "acc" && tmpCount < 2) {
-        count += Number(instructions[1])
-        console.log(test_input[i], "iteration: ", i)
+    else if (instructions[0] === "acc") {
+        count = count + Number(instructions[1])
+        i++
+        visited.push(i)
+        console.log(count, "acc", i, Number(instructions[1]), duplicateFinder)
     }
 
-    if(instructions[0] = "jmp" && tmpCount < 2) {
+    else if (instructions[0] === "jmp") {
         i += Number(instructions[1])
-        console.log(test_input[i], "iteration: ", i)
+        visited.push(i)
+        console.log(count, "jmp", i, Number(instructions[1]), duplicateFinder)
     }
     
-    else if (tmpCount === 2) {
-    break;
-    }
-
 }
 count
