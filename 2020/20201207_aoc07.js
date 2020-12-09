@@ -11,49 +11,40 @@ const test_input = [
 ]
 const day7_input = document.querySelector('pre').textContent.split('\n').slice(0,-1)
 
-// part one
-// var obj = {};
-// test_input.forEach(function (objectMaker) {
+function bagFinder (bagFinder) {
+var obj = {},
+    containingList = ['shiny gold'],
+    finalArray = [];
 
-//     var bagColour = objectMaker.split(" contain ")[0],
-//         colourContains = [...(objectMaker.split("contain")[1]).matchAll(/([0-9]+) ([a-z ]+) bags?/gi)],
-//         colourList = [];
+bagFinder.forEach(function (objectMaker) {
 
-//     colourContains.forEach(function(colourReadout) {
-//         colourList.push({bagColour: colourReadout[2], bagCount: colourReadout[1]});
-//     })
+    var bagColour = objectMaker.split(" contain ")[0],
+        colourContains = [...(objectMaker.split("contain")[1]).matchAll(/([0-9]+) ([a-z ]+) bags?/gi)],
+        colourList = [];
 
-//     obj[bagColour] = colourList;
+    colourContains.forEach(function(colourReadout) {
+        colourList.push({bagColour: colourReadout[2], bagCount: colourReadout[1]});
+    })
 
-// })
-// obj
+    obj[bagColour] = colourList;
 
-var second_test = ['shiny gold'];
-test_input.filter(function(shinyGold) {
+})
+
+bagFinder.filter(function(shinyGold) {
    if( /contain .*shiny gold.*/gi.test(shinyGold) ) {
-    second_test.push(shinyGold.split(" bags contain ")[0])
+    containingList.push(shinyGold.split(" bags contain ")[0])
    }
 })
 
-// test_input.forEach(function(expanded) {
-//     var bagContents = expanded.split(" bags contain ")[1]
-// 	bagContents
-//     second_test.forEach(function (newList) {
-//         if( RegExp(newList).test(bagContents) ) {
-//             console.log( expanded.split(" bags contain ")[0] )
-//         }
-//     })
-// })
-
-tmp = [];
 for(const bag in obj) {
-    second_test.forEach( function(nested) {
-        for(let i = 0; i < obj[bag].length; i++) {
-            if( obj[bag][i]["bagColour"] === nested ) {
-                tmp.push(bag)
-                break;
-            }
+    for(let i = 0; i < obj[bag].length; i++) {
+        if( containingList.includes(obj[bag][i]["bagColour"]) ) {
+            finalArray.push(bag)
+            break;
         }
-    })  
+    }
 }
-tmp
+return finalArray 
+}
+
+bagFinder(test_input)
