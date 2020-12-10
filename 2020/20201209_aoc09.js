@@ -50,3 +50,25 @@ return weakness
 }
 findWeakness(day9_input)
 
+const weakness_figure = 373803594;
+function sumTotal (arr) {
+    return arr.reduce(function(a, b) {return a+b})
+}
+
+const test_weakness = 127;
+var contiguous_window = [test_input[0]]
+
+for(let i = 0; i < test_input.length; i++) {
+    if(sumTotal(contiguous_window) < test_weakness) {
+        contiguous_window.push(test_input[i+1])
+    }
+    if(sumTotal(contiguous_window) > test_weakness) {
+        contiguous_window.shift()
+    }
+    if(sumTotal(contiguous_window) === test_weakness) {
+        break;
+    }
+
+}
+contiguous_window.sort()
+contiguous_window[0] + contiguous_window[contiguous_window.length - 1]
