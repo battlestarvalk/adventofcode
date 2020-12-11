@@ -31,39 +31,32 @@ function searchSeats (row, column, distance, arr) {
 
 var seatGrid = [];
 for(let i = 0; i < test_input.length; i++) {
+  var seatMap = [];
     for(let j = 0; j < test_input[i].length; j++) {
 
         if(test_input[i].charAt(j) === ".") {
-                seatGrid.push(".");
+                seatMap.push(".");
         }
 
         else if(test_input[i].charAt(j) === "L") {
             if(searchSeats(i, j, 1, test_input).includes(".") 
                 || searchSeats(i, j, 1, test_input).includes("L")) {
-                seatGrid.push("#");
+                seatMap.push("#");
             }
             else {
-                seatGrid.push("L");
+                seatMap.push("L");
             }
         }
         else if(test_input[i].charAt(j) === "#") {
             if(searchSeats(i, j, 4, test_input).includes(".")
                 || searchSeats(i, j, 4, test_input).includes("L")) {
-                seatGrid.push("#");
+                seatMap.push("#");
             }
             else {
-                seatGrid.push("L");
+                seatMap.push("L");
             }
-        }
-            
+        }     
     }
+    seatGrid.push( seatMap.join("") )
 }
-
-var seatMap = seatGrid,
-    seatGrid = [];
-
-for(group = 0; group < test_input.length; group++) {
-    seatGrid.push(seatMap.slice((10*group), ((10*group) + 9)).join(""))
-}
-
 seatGrid
