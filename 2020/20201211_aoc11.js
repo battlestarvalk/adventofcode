@@ -11,7 +11,7 @@ test_input = ['L.LL.LL.LL',
 
 function searchSeats (row, column, distance, arr) {
  var adjacent = [];
-  for(let k = 0; k < distance; k++) {
+  for(let k = 1; k <= distance; k++) {
     // directly above
     if(arr[row-k] != undefined) {
         adjacent.push( arr[row-k].charAt(column) )}
@@ -29,34 +29,35 @@ function searchSeats (row, column, distance, arr) {
     return adjacent;
 }
 
-var seatGrid = [];
-for(let i = 0; i < test_input.length; i++) {
-  var seatMap = [];
-    for(let j = 0; j < test_input[i].length; j++) {
+function shiftSeats (arr) {
+ var seatGrid = [];
+ for(let i = 0; i < arr.length; i++) {
+   var seatMap = [];
+     for(let j = 0; j < arr[i].length; j++) {
 
-        if(test_input[i].charAt(j) === ".") {
-                seatMap.push(".");
-        }
+         if(arr[i].charAt(j) === ".") {
+                 seatMap.push(".");
+         }
 
-        else if(test_input[i].charAt(j) === "L") {
-            if(searchSeats(i, j, 1, test_input).includes(".") 
-                || searchSeats(i, j, 1, test_input).includes("L")) {
-                seatMap.push("#");
-            }
-            else {
-                seatMap.push("L");
-            }
-        }
-        else if(test_input[i].charAt(j) === "#") {
-            if(searchSeats(i, j, 4, test_input).includes(".")
-                || searchSeats(i, j, 4, test_input).includes("L")) {
-                seatMap.push("#");
-            }
-            else {
-                seatMap.push("L");
-            }
-        }     
-    }
-    seatGrid.push( seatMap.join("") )
+         else if(arr[i].charAt(j) === "L") {
+             if(searchSeats(i, j, 1, arr).includes("L")) {
+                 seatMap.push("#");
+             }
+             else {
+                 seatMap.push("L");
+             }
+         }
+         else if(arr[i].charAt(j) === "#") {
+             if(searchSeats(i, j, 4, arr).includes("L")) {
+                 seatMap.push("#");
+             }
+             else {
+                 seatMap.push("L");
+             }
+         }     
+     }
+     seatGrid.push( seatMap.join("") )
+ }
+ return seatGrid
 }
-seatGrid
+shiftSeats(test_input)
