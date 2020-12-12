@@ -98,3 +98,52 @@ function goTheDistance (arr) {
     return Math.abs(manhattan["NS"])+Math.abs(manhattan["EW"])
 }
 
+// // part two
+// let 
+// 	compass = [3, 0],
+// 	manhattan = {"NS": 0, "EW": 0},
+// 	waypoint = {"NS": 1, "EW": 10};
+
+// function waypointRotation (str) {
+// 	var movementdirection = Number(str.substring(1)) / 90
+// 	if( str.startsWith("R") ) {
+// 		compass = compass.map(function (rotation) {return (rotation += movementdirection) % 4})
+// 	}
+// 	else if ( str.startsWith("L") ) {
+// 		compass = compass.map(function (rotation) {return (rotation -= movementdirection) % 4})
+// 	}
+// 	return compass
+// }
+
+// test_input.forEach( function(movement) {
+//     console.log("start", movement, compass, waypoint, manhattan)
+//     if(movement.startsWith("F")) {
+//         manhattan["NS"] = manhattan["NS"] + (waypoint["NS"]*Number(movement.substring(1)));
+//         manhattan["EW"] = manhattan["EW"] + (waypoint["EW"]*Number(movement.substring(1)));
+//     }
+
+//     if(movement.startsWith("R") || movement.startsWith("L")) {
+//         waypointRotation(movement)
+//     }
+
+//     else {
+//         console.log("movement", movement, compass, movement.substring(1))
+//         switch(movement.charAt(0)) {
+//             case "N":
+//                 waypoint["NS"] += Number(movement.substring(1));
+//                 break;
+//             case "S":
+//                 waypoint["NS"] -= Number(movement.substring(1));
+//                 break;
+//             case "E":
+//                 waypoint["EW"] += Number(movement.substring(1));
+//                 break;
+//             case "W":
+//                 waypoint["EW"] -= Number(movement.substring(1));
+//                 break;
+//             default:
+//                 console.log("idk!");
+//         }
+//     }
+//     console.log("end", movement, compass, waypoint, manhattan)
+// })
