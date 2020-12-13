@@ -102,27 +102,43 @@ function goTheDistance (arr) {
 // let 
 // 	compass = [3, 0],
 // 	manhattan = {"NS": 0, "EW": 0},
+//     	waypointPoints = [10,0,0,1],
 // 	waypoint = {"NS": 1, "EW": 10};
 
 // function waypointRotation (str) {
-// 	var movementdirection = Number(str.substring(1)) / 90
+// 	var movementdirection = Number(str.substring(1)) / 90,
+// 			firstVal = waypointPoints[compass[0]],
+// 			secVal = waypointPoints[compass[1]];
+
+// 	waypointPoints = [0,0,0,0];
+
 // 	if( str.startsWith("R") ) {
 // 		compass = compass.map(function (rotation) {return (rotation += movementdirection) % 4})
 // 	}
 // 	else if ( str.startsWith("L") ) {
 // 		compass = compass.map(function (rotation) {return (rotation -= movementdirection) % 4})
 // 	}
+
+// 	waypointPoints[compass[0]] = firstVal;
+// 	waypointPoints[compass[1]] = secVal;
+
+// 	waypoint["NS"] = waypointPoints[3]-waypointPoints[1];
+// 	waypoint["EW"] = waypointPoints[0]-waypointPoints[2];
+
 // 	return compass
+
 // }
 
 // test_input.forEach( function(movement) {
 //     console.log("start", movement, compass, waypoint, manhattan)
 //     if(movement.startsWith("F")) {
+// 	console.log("forward", movement, compass, waypoint, manhattan)
 //         manhattan["NS"] = manhattan["NS"] + (waypoint["NS"]*Number(movement.substring(1)));
 //         manhattan["EW"] = manhattan["EW"] + (waypoint["EW"]*Number(movement.substring(1)));
 //     }
 
 //     if(movement.startsWith("R") || movement.startsWith("L")) {
+// 	console.log("rotation", movement, compass, waypoint, manhattan)
 //         waypointRotation(movement)
 //     }
 
