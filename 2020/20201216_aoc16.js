@@ -59,12 +59,13 @@ invalidNumbers(test_input, 3)
 // 71
 
 // part 2
-  var instructions = test_input.slice(0,3),
-      your_ticket = test_input[5].split(",").map(Number),
-      other_tickets = test_input.slice(8)
+function departures(arr, instrCount) {
+  var instructions = arr.slice(0,instrCount),
+      your_ticket = arr[instrCount+2].split(",").map(Number),
+      other_tickets = arr.slice(instrCount+5)
                                 .map(function(ticketVal) {return ticketVal.split(',')})
                                 .map(function (val) {return val.map(Number)}),
-      other_tix_num = test_input.slice(8).join(",").split(',').map(Number)
+      other_tix_num = arr.slice(instrCount+5).join(",").split(',').map(Number)
 
   obj = {};
   instructions.forEach(function(value) {
@@ -81,11 +82,33 @@ invalidNumbers(test_input, 3)
                       tmpArr.push(validity)
                   }
               })
+      }}
 
-for(let i = 0; i < other_tickets.length; i++) {
-  var invalidTix = other_tickets[i].filter(function(validity) {return !tmpArr.includes(validity) })
-    if(invalidTix.length === 0) {
-        valid_tickets = other_tickets[i]
+    valid_tickets = [];
+    for(let i = 0; i < other_tickets.length; i++) {
+      var invalidTix = other_tickets[i].filter(function(validity) {return !tmpArr.includes(validity) })
+        if(invalidTix.length === 0) {
+            valid_tickets.push(other_tickets[i])
+        }
+    }
+
+    for(const location in obj) {
+        for(let k = 0; k < valid_tickets[0].length; k++) {
+        metric = 0;
+            for(let j = 0; j < valid_tickets.length; j++) {
+                for(let i = 0; i < 2; i++) {
+                    if( inRange(valid_tickets[j][k], obj[location][i][0], obj[location][i][1]) ) {
+                        metric++
+                        continue;
+                    }
+                }
+            }
+          if(metric === valid_tickets.length) {
+            console.log(location, k);
+            break;
+          } 
+      }
     }
 }
-valid_tickets
+
+departures(input, 20)
