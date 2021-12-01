@@ -1,17 +1,21 @@
 /*part one*/
-var input = document.querySelector('pre').textContent.split('\n').slice(0,-1),
-    output = [];
-for(var i=0; i<input.length; i++) {
-    if(input[i]-input[i-1] > 0) {
-        output.push(input[i])
-    }
+var input = document.querySelector('pre').textContent.split('\n').slice(0,-1).map(Number);
+
+function increasifier(array) {
+    var output = [];
+        for(var i=0; i<array.length; i++) {
+            if(array[i] > array[i-1]) {
+                output.push(array[i])
+            }
+        }
+    return output.length
 }
-output.length
+increasifier(input)
 
 /*part two*/
 
 function rollWindow (array) {
-var first_run = array.map(Number),
+var first_run = array,
     temp_array = [],
     output = [];
 
