@@ -33,6 +33,33 @@ return depth*distance
 
 travelDistance(input)
 
+/*PART ONE ALTERNATE*/
+function travelDistance(array) {
+var depth = 0,
+    distance = 0;
+
+array.forEach(function(move) {
+    var direction = move.split(" ")[0],
+        increments = Number(move.split(" ")[1]);
+
+    switch(direction) {
+        case "forward":
+            distance = distance +increments;
+            break;
+        case "down":
+            depth = depth +increments;
+             break;
+        case "up":
+            depth = depth -increments;
+            break;
+    }
+
+    })
+    
+    return depth*distance
+
+}
+
 /*part two*/
 
 function travelAim(array) {
