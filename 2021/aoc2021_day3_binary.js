@@ -39,28 +39,38 @@ return parseInt(Number(tmp_array_gamma.join("")), 2)*parseInt(Number(tmp_array_e
 Converter(input) //1071734
 
 /*part two*/
-var tmp_array = [];
+var test = input,
+    oxy_gen = 0;
 
-    var zeros = 0,
-        ones = 0;
-for(var j=0; j<input[0].length;j++) {
 
-    for(var i = 0; i<input.length;i++) {
-        if(input[i].charAt(j) == '0') {
-            zeros++;
-        }
-
-        if(input[i].charAt(j) == '1') {
-            ones++;
-        }
+for(var j=0; j<(test[0].length);j++) {
+    if(test.length == 1) {
+        oxy_gen = parseInt(Number(test[0]), 2)
+        break;
     }
 
+var tmp_zeros_array = [],
+    tmp_ones_array = [],
+    zeros = 0,
+    ones = 0;
+
+    for(var i = 0; i<test.length;i++) {
+        if(test[i].charAt(j) == '0') {
+            zeros++,
+            tmp_zeros_array.push(i);
+        }
+
+        if(test[i].charAt(j) == '1') {
+            ones++,
+            tmp_ones_array.push(i);
+        }
+    }
     if(zeros > ones) {
-        tmp_array.push(0)
+        test = test.filter(function(value, index) {return tmp_ones_array.indexOf(index) == -1});
+        
     }
 
     else if(ones > zeros) {
-        tmp_array.push(1)
+        test = test.filter(function(value, index) {return tmp_zeros_array.indexOf(index) == -1});
     }
-
 }
