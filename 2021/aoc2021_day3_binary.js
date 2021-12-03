@@ -39,4 +39,28 @@ return parseInt(Number(tmp_array_gamma.join("")), 2)*parseInt(Number(tmp_array_e
 Converter(input) //1071734
 
 /*part two*/
+var tmp_array = [];
 
+    var zeros = 0,
+        ones = 0;
+for(var j=0; j<input[0].length;j++) {
+
+    for(var i = 0; i<input.length;i++) {
+        if(input[i].charAt(j) == '0') {
+            zeros++;
+        }
+
+        if(input[i].charAt(j) == '1') {
+            ones++;
+        }
+    }
+
+    if(zeros > ones) {
+        tmp_array.push(0)
+    }
+
+    else if(ones > zeros) {
+        tmp_array.push(1)
+    }
+
+}
