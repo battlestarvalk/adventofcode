@@ -21,7 +21,7 @@ for(var k=0;k<mini_boards.length;k++) {
                 break;
             }
             else {
-                console.log(idx);
+                console.log(k, l, idx);
                 idx = mini_boards[k].indexOf(called_nos[l], l)
             }
     }
