@@ -14,15 +14,17 @@ for(var j = 0;j<(numerical_board.length/25); j++) {
     mini_boards.push(numerical_board.slice((25*j), (25*(j+1))))
 }
 
-for(var k=0;k<mini_boards.length;k++) {
-    for(var l = 0;l<called_nos.length;l++) {
-        var idx = mini_boards[k].indexOf(called_nos[l], l)
-            if(idx == -1) {
-                break;
-            }
-            else {
-                console.log(k, l, idx);
-                idx = mini_boards[k].indexOf(called_nos[l], l)
-            }
+/*part one*/
+filled_boxes = []
+
+for(var k = 0; k<mini_boards.length; k++) {
+  filled_boxes.push([])
+	for(var m = 0;m<called_nos.length;m++) {
+    var idx = mini_boards[k].indexOf(called_nos[m], idx + 1)
+    while (idx != -1) {
+      //console.log(k, called_nos[k], idx)
+      filled_boxes[k].push(idx)
+      idx = mini_boards[k].indexOf(called_nos[m], idx + 1);
     }
+  }
 }
