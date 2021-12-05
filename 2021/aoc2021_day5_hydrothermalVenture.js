@@ -59,15 +59,17 @@ for(var j = 0;j<movement.length;j++){
 
     for(var i = start; i<end+1;i++) {
       oceanFloor[i][movement[j]["startX"]]++
+            //console.log(j, i, i, movement[j]["startX"])
     }
   }
 
-  if(movement[j]["startY"] - movement[j]["endY"] == 0) {
+  else if(movement[j]["startY"] - movement[j]["endY"] == 0) {
     start = Math.min(movement[j]["endX"], movement[j]["startX"])
     end = Math.max(movement[j]["endX"], movement[j]["startX"])
 
     for(var i = start; i<end+1;i++) {
       oceanFloor[movement[j]["startY"]][i]++
+            //console.log(j, i, movement[j]["startY"], i)
     }
   }
 
@@ -78,9 +80,8 @@ for(var j = 0;j<movement.length;j++){
         
       for(var i = 0; i<distance+1;i++) {
         oceanFloor[(movement[j]["startY"])+(i*yMove)][(movement[j]["startX"])+(i*xMove)]++
-        //console.log(j, i, distance, (movement[j]["startY"])+(i*yMove), (movement[j]["startX"])+(i*xMove))
+        //console.log(j, i, (movement[j]["startY"])+(i*yMove), (movement[j]["startX"])+(i*xMove))
       }
-
     }
 
 }
