@@ -14,7 +14,7 @@ for(var j = 0;j<(numerical_board.length/25); j++) {
     mini_boards.push(numerical_board.slice((25*j), (25*(j+1))))
 }
 
-/*part one*/
+/*prep for both parts*/
 
 function bingoCaller(indexCall) {
     
@@ -24,7 +24,8 @@ function bingoCaller(indexCall) {
 }
 
 filled_boxes = [],
-winning_round = [];
+winning_round = [],
+winning_num = [];
 for(var k = 0; k<mini_boards.length; k++) {
   filled_boxes.push([])
     var bingorow = [0,0,0,0,0],
@@ -40,11 +41,23 @@ for(var k = 0; k<mini_boards.length; k++) {
     }
         if(Math.max(...bingorow) == 5 || Math.max(...bingocol) == 5) {
             winning_round.push(m)
+            winning_num.push(called_nos[m])
             break;
         }
   }
 }
 
+/*part one*/
+
 win_board = winning_round.indexOf(Math.min(...winning_round))
-mini_boards[win_board].filter(function(value, index) {return filled_boxes[win_board].indexOf(index) == -1})
-mini_boards[win_board].filter(function(value, index) {return filled_boxes[win_board].indexOf(index) == -1}).reduce((x,y) => x+y)
+win_num = winning_num[winning_round.indexOf(Math.min(...winning_round))]
+
+sumRem = mini_boards[win_board].filter(function(value, index) {return filled_boxes[win_board].indexOf(index) == -1}).reduce((x,y) => x+y)
+sumRem*win_num
+
+/*part two*/
+loss_board = winning_round.indexOf(Math.max(...winning_round))
+loss_num = winning_num[winning_round.indexOf(Math.max(...winning_round))]
+
+sumRem = mini_boards[loss_board].filter(function(value, index) {return filled_boxes[loss_board].indexOf(index) == -1}).reduce((x,y) => x+y)
+sumRem*loss_num
