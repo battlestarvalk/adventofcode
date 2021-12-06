@@ -1,4 +1,4 @@
-test = [3,4,3,1,2]
+/*test = [3,4,3,1,2]
 
 for(var i=0;i<test.length;i++) {
 
@@ -23,4 +23,21 @@ for(var i=0;i<test.length;i++) {
 }
 
 test.filter(x => x < 19).length
+*/
 
+const input = document.querySelector('pre').textContent.split('\n')[0].split(',').map(Number)
+
+function lanternfish(array, days) {
+
+    for(var i=0;i<days;i++) {
+        for(var k=0;k<array.length;k++) {
+            if(array[k] == 0) {
+            array.splice(k, 1, 6)
+            array.push(9)
+            }
+            else {array[k]--}
+        }
+    }
+    return array.length
+
+}
