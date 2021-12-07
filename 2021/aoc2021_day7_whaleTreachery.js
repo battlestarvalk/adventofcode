@@ -19,10 +19,10 @@ for(var j=0;j<checking.length;j++) {
         }
     }
 }
+   
+fuelUsages = fuelUsages.filter(x => Number(x) > 0)
 
-fuelUsages = fuelUsages.filter(x => Number(x) > 0).sort(function(a, b) {return a - b;})
-
-return fuelUsages[0]
+return Math.min(...fuelUsages)
 
 }
 
@@ -41,8 +41,8 @@ for(var j=0;j<checking.length;j++) {
     }
 }
   
-fuelUsages = fuelUsages.filter(x => Number(x) > 0).sort(function(a, b) {return a - b;})
+fuelUsages = fuelUsages.filter(x => Number(x) > 0)
 
-return fuelUsages[0]
+return Math.min(...fuelUsages)
 
 }
