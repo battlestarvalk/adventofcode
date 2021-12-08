@@ -1,12 +1,15 @@
 /*test*/
 input = document.querySelector("body > main > article > pre:nth-child(16) > code").textContent.split('\n')
+//pt one
 input = input.filter(x => !(/\|/.test(x)))
 
+target = [7,4,2,3]
 number = []
 input.map(x => number.push(x.split(" ")))
+
+//pt one only
 number = number.join().split(",")
 
-target = [7,4,2,3]
 target_num = 0
 for(var i=0; i<number.length; i++) {
     if(target.includes(number[i].length)) {
