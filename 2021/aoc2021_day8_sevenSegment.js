@@ -1,4 +1,5 @@
 /*test*/
+input = document.querySelector('pre').textContent.split('\n')
 input = document.querySelector("body > main > article > pre:nth-child(16) > code").textContent.split('\n')
 //pt one
 input = input.filter(x => !(/\|/.test(x)))
@@ -68,34 +69,32 @@ for(var k=0; k<input.length;k++) {
     replacement_key = {}
 
     for(const valString in obj) {
-        if(obj[valString].length == 10) {
-            replacement_key[valString] = "f"
-        }
-
-        if(obj[valString].length == 7) {
-            replacement_key[valString] = "a"
-        }
-
-        if(obj[valString].length == 5) {
-            replacement_key[valString] = "e"
-        }
-
-        if(obj[valString].length == 8) {
-            if(/4/.test(obj[valString])) {
-              replacement_key[valString] = "d"
-            }
-            else {
-              replacement_key[valString] = "g"
-            }
-        }
-
-        if(obj[valString].length == 9) {
-            if(/4/.test(obj[valString])) {
-              replacement_key[valString] = "c"
-            }
-            else {
-              replacement_key[valString] = "b"
-            }
+        switch(obj[valString].length) {
+            case 10:
+                replacement_key[valString] = "f";
+                break;
+            case 7:
+                replacement_key[valString] = "a";
+                break;
+            case 5:
+                replacement_key[valString] = "e";
+                break;
+            case 8:
+                if(/4/.test(obj[valString])) {
+                   replacement_key[valString] = "d"
+                    }
+                else {
+                  replacement_key[valString] = "g"
+                };
+                break;
+            case 9:
+                if(/4/.test(obj[valString])) {
+                  replacement_key[valString] = "c"
+                }
+                else {
+                  replacement_key[valString] = "b"
+                };
+                break;
         }
     }
     replacement_key
@@ -152,7 +151,11 @@ for(var j=0; j<number.length;j++) {
 
         if(number[j][i].length == 6) {
 
-            if(/c/.test(number[j][i])) {
+            if(/d/.test(number[j][i]) == false) {
+                converted_number[j].push(0)
+            }
+
+            else if(/c/.test(number[j][i])) {
                 converted_number[j].push(9)
             }
 
@@ -160,9 +163,6 @@ for(var j=0; j<number.length;j++) {
                 converted_number[j].push(6)
             }
 
-            else {
-                converted_number[j].push(0)
-            }
         }
     }
 }
