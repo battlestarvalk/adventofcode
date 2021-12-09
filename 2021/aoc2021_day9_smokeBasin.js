@@ -63,9 +63,14 @@ for(var i=0; i<input.length;i++) {
     }
 }
 
-input_test = new Array(10).fill(0).map(x => x = new Array(10).fill(0))
+/*input_test = new Array(10).fill(0).map(x => x = new Array(10).fill(0))
 for(var i=0; i<highpoint_locations.length;i++) {
     input_test[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
+}*/
+
+empty_seafloor = new Array(input.length).fill(0).map(x => x = new Array(input[0].length).fill(0))
+for(var i=0; i<highpoint_locations.length;i++) {
+    empty_seafloor[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
 }
 
 //https://www.codeguru.co.in/2021/10/flood-fill-algorithm-in-javascript.html
@@ -73,12 +78,13 @@ for(var i=0; i<highpoint_locations.length;i++) {
 function floodFillRec(i, j, oldColor, newColor) {
 
   // Check the boundary condition
-  if (i < 0 || i >= input_test.length || j < 0 || j >= input_test[i].length) return;
-  if (input_test[i][j] !== oldColor) return;
+  if (i < 0 || i >= empty_seafloor.length || j < 0 || j >= empty_seafloor[i].length) return;
+  if (empty_seafloor[i][j] !== oldColor) return;
 
   // set the color of node to newColor
-  input_test[i][j] = newColor;
-  basin++;
+  empty_seafloor[i][j] = newColor;
+  //basin_location.push([i,j]);
+  basin_size++;
 
 
   // Look for neighboring cell
@@ -88,18 +94,20 @@ function floodFillRec(i, j, oldColor, newColor) {
   floodFillRec(i, j - 1, oldColor, newColor);
 }
 
-input_test = new Array(10).fill(0).map(x => x = new Array(10).fill(0))
-for(var i=0; i<highpoint_locations.length;i++) {
-    input_test[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
-}
-basins = []
+//basins = []
+basin_sizes = []
 
 for(var i=0; i<lowpoint_locations.length;i++) {
-    basin = 0
+    //basin_location = []
+    basin_size = 0
     floodFillRec(lowpoint_locations[i][0],lowpoint_locations[i][1],0,5)
-    basins.push(basin)
+    //basins.push(basin_location)
+    basin_sizes.push(basin_size)
 }
-basins
+basin_sizes
+
+basin_sizes.sort((a,b) => b-a)
+basin_sizes[0]*basin_sizes[1]*basin_sizes[2]
 
 /*function allDirections (direction, rowMovement, colMovement) {
 
