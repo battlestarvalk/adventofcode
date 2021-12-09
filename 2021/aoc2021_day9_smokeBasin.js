@@ -33,6 +33,7 @@ lowpoints.reduce((a,b) => (a+b))
 input = document.querySelector('pre').textContent.split('\n').slice(0,-1).map(x => x.split("")).map((x,y) => x.map(y => Number(y)))
 
 lowpoint_locations = []
+highpoint_locations = []
 
 for(var i=0; i<input.length;i++) {
     for(var j=0; j<input[i].length; j++) {
@@ -41,7 +42,7 @@ for(var i=0; i<input.length;i++) {
         }
 
         else if(input[i][j] == 9) {
-            continue;
+            highpoint_locations.push([i,j]);
         }
         
         else {
@@ -62,7 +63,6 @@ for(var i=0; i<input.length;i++) {
     }
 }
 
-lowpoint_locations
 
 /*function allDirections (direction, rowMovement, colMovement) {
 
@@ -77,7 +77,7 @@ lowpoint_locations
     }
 
     return length
-} */
+} 
 
 
 row = lowpoint_locations[2][0]
@@ -115,3 +115,34 @@ function leftMovement (array, row, column) {
 
     return length
 }
+
+function upMovement (array, row, column) {
+    distance = column
+    length = 0
+    
+    for(var m=0; m<distance; m++) {
+      if(array[row+((1+m)*-1)] != undefined) {
+        if(array[row+((1+m)*-1)][column] == 9 || array[row+((1+m)*-1)][column] <= array[row][column]) {
+            length = length +m
+            break;
+        }
+      }
+    }
+
+    return length
+}
+
+function downMovement (array, row, column) {
+    distance = input[column].length - column
+    length = 0
+    
+    for(var m=0; m<distance; m++) {
+        if(array[row+(1+m)][column] == 9 || array[row+(1+m)][column] <= array[row][column]) {
+            length = length +m
+            break;
+          }
+    }
+
+    return length
+}
+*/
