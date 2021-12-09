@@ -63,6 +63,43 @@ for(var i=0; i<input.length;i++) {
     }
 }
 
+input_test = new Array(10).fill(0).map(x => x = new Array(10).fill(0))
+for(var i=0; i<highpoint_locations.length;i++) {
+    input_test[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
+}
+
+//https://www.codeguru.co.in/2021/10/flood-fill-algorithm-in-javascript.html
+
+function floodFillRec(i, j, oldColor, newColor) {
+
+  // Check the boundary condition
+  if (i < 0 || i >= input_test.length || j < 0 || j >= input_test[i].length) return;
+  if (input_test[i][j] !== oldColor) return;
+
+  // set the color of node to newColor
+  input_test[i][j] = newColor;
+  basin++;
+
+
+  // Look for neighboring cell
+  floodFillRec(i + 1, j, oldColor, newColor);
+  floodFillRec(i - 1, j, oldColor, newColor);
+  floodFillRec(i, j + 1, oldColor, newColor);
+  floodFillRec(i, j - 1, oldColor, newColor);
+}
+
+input_test = new Array(10).fill(0).map(x => x = new Array(10).fill(0))
+for(var i=0; i<highpoint_locations.length;i++) {
+    input_test[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
+}
+basins = []
+
+for(var i=0; i<lowpoint_locations.length;i++) {
+    basin = 0
+    floodFillRec(lowpoint_locations[i][0],lowpoint_locations[i][1],0,5)
+    basins.push(basin)
+}
+basins
 
 /*function allDirections (direction, rowMovement, colMovement) {
 
