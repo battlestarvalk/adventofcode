@@ -22,7 +22,6 @@ for(var j = 0;j<movement.length;j++){
 
         for(var i = start; i<end+1;i++) {
           oceanFloor[i][movement[j]["startX"]]++
-          //console.log(j, i, end, start, oceanFloor[i][movement[j]["startX"]])
         }
   }
 
@@ -32,7 +31,6 @@ for(var j = 0;j<movement.length;j++){
 
           for(var i = start; i<end+1;i++) {
            oceanFloor[movement[j]["startY"]][i]++
-           //console.log(j, i, end, start, oceanFloor[movement[j]["startY"]][i])
           }
   }
 
@@ -80,7 +78,6 @@ for(var j = 0;j<movement.length;j++){
         
       for(var i = 0; i<distance+1;i++) {
         oceanFloor[(movement[j]["startY"])+(i*yMove)][(movement[j]["startX"])+(i*xMove)]++
-        //console.log(j, i, (movement[j]["startY"])+(i*yMove), (movement[j]["startX"])+(i*xMove))
       }
     }
 
