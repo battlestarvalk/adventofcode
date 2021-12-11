@@ -35,6 +35,8 @@ input = document.querySelector('pre').textContent.split('\n').slice(0,-1).map(x 
 lowpoint_locations = []
 highpoint_locations = []
 
+//find all the highpoints (9) - these are the boundaries of the basins
+//find all the lowpoints - these are the number of basins that we are going to calculate the size of
 for(var i=0; i<input.length;i++) {
     for(var j=0; j<input[i].length; j++) {
         if(input[i][j] == 0) {
@@ -63,29 +65,30 @@ for(var i=0; i<input.length;i++) {
     }
 }
 
-/*input_test = new Array(10).fill(0).map(x => x = new Array(10).fill(0))
-for(var i=0; i<highpoint_locations.length;i++) {
-    input_test[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
-}*/
-
+// remake the ocean floor from earlier into a boolean of boundaries (from the highpoints) and all other spaces
 empty_seafloor = new Array(input.length).fill(0).map(x => x = new Array(input[0].length).fill(0))
 for(var i=0; i<highpoint_locations.length;i++) {
     empty_seafloor[highpoint_locations[i][0]][highpoint_locations[i][1]] = 9
 }
 
+//use a flood fill algo (recursive)
 //https://www.codeguru.co.in/2021/10/flood-fill-algorithm-in-javascript.html
 
 function floodFillRec(i, j, oldColor, newColor) {
 
   // Check the boundary condition
+    //don't fill neighbouring cell if it doesn't exist (0 or length)
   if (i < 0 || i >= empty_seafloor.length || j < 0 || j >= empty_seafloor[i].length) return;
+    //don't fill neighbouring cell if it is the new colour
   if (empty_seafloor[i][j] !== oldColor) return;
 
-  // set the color of node to newColor
+  // set the color of node to newColor - this prevents it from being checked again.
   empty_seafloor[i][j] = newColor;
+//basin_location would provide the [i,j] location of each individual basin. however, this is not necessary, so is commented out.
   //basin_location.push([i,j]);
+    
+  //increase the basin size
   basin_size++;
-
 
   // Look for neighboring cell
   floodFillRec(i + 1, j, oldColor, newColor);
@@ -94,6 +97,7 @@ function floodFillRec(i, j, oldColor, newColor) {
   floodFillRec(i, j - 1, oldColor, newColor);
 }
 
+//starting from each lowpoint, run the flood fill algo
 //basins = []
 basin_sizes = []
 
@@ -102,92 +106,14 @@ for(var i=0; i<lowpoint_locations.length;i++) {
     basin_size = 0
     floodFillRec(lowpoint_locations[i][0],lowpoint_locations[i][1],0,5)
     //basins.push(basin_location)
+    
+    //the flood fill algo will have slowly been ticking this upwards, and now we have found every space we can push the size into a list of basin sizes
     basin_sizes.push(basin_size)
 }
-basin_sizes
 
+// sort basin size from highest to lowest
 basin_sizes.sort((a,b) => b-a)
+// final answer - multiply the first three values of the sort.
 basin_sizes[0]*basin_sizes[1]*basin_sizes[2]
 
-/*function allDirections (direction, rowMovement, colMovement) {
 
-    distance = direction
-    length = 0
-
-    for(var m=0; m<distance; m++) {
-        if(input[row+(rowMovement)][column+(colMovement)] == 9 || input[row+(rowMovement)][column+(colMovement)] <= input[row][column]) {
-            length +m
-            break;
-        }
-    }
-
-    return length
-} 
-
-
-row = lowpoint_locations[2][0]
-column = lowpoint_locations[2][1]
-
-up_distance = column
-down_distance = input[column].length - column
-
-function rightMovement (array, row, column) {
-
-    distance = array[row].length - row
-    length = 0
-
-    for(var m=0; m<distance; m++) {
-        if(array[row][column+(1+m)] == 9 || array[row][column+(1+m)] <= array[row][column]) {
-            length = length +m
-            break;
-        }
-    }
-
-    return length
-}
-
-function leftMovement (array, row, column) {
-
-    distance = row
-    length = 0
-
-    for(var m=0; m<distance; m++) {
-        if(array[row][column+((1+m)*-1)] == 9 || array[row][column+((1+m)*-1)] <= array[row][column]) {
-            length = length +m
-            break;
-        }
-    }
-
-    return length
-}
-
-function upMovement (array, row, column) {
-    distance = column
-    length = 0
-    
-    for(var m=0; m<distance; m++) {
-      if(array[row+((1+m)*-1)] != undefined) {
-        if(array[row+((1+m)*-1)][column] == 9 || array[row+((1+m)*-1)][column] <= array[row][column]) {
-            length = length +m
-            break;
-        }
-      }
-    }
-
-    return length
-}
-
-function downMovement (array, row, column) {
-    distance = input[column].length - column
-    length = 0
-    
-    for(var m=0; m<distance; m++) {
-        if(array[row+(1+m)][column] == 9 || array[row+(1+m)][column] <= array[row][column]) {
-            length = length +m
-            break;
-          }
-    }
-
-    return length
-}
-*/
