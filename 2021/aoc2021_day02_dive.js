@@ -14,15 +14,15 @@ function travelDistance(array) {
             increments = Number(array[i].split(" ")[1]);
 
         if(direction == "forward") {
-            distance = distance +increments
+            distance +=increments
         }
 
         if(direction == "up") {
-            depth = depth -increments
+           depth -=increments
         }
 
         if(direction == "down") {
-            depth = depth +increments
+            depth +=increments
         }
 
     }
@@ -44,13 +44,13 @@ array.forEach(function(move) {
 
     switch(direction) {
         case "forward":
-            distance = distance +increments;
+            distance +=increments;
             break;
         case "down":
-            depth = depth +increments;
+            depth +=increments;
              break;
         case "up":
-            depth = depth -increments;
+            depth -=increments;
             break;
     }
 
@@ -72,16 +72,16 @@ function travelAim(array) {
             increments = Number(array[i].split(" ")[1]);
 
         if(direction == "forward") {
-            distance = distance +increments
-            depth = depth +(increments*aim)
+            distance +=increments
+            depth +=(increments*aim)
         }
 
         if(direction == "up") {
-            aim = aim -increments
+            aim -=increments
         }
 
         if(direction == "down") {
-            aim = aim +increments
+            aim +=increments
         }
 
     }
