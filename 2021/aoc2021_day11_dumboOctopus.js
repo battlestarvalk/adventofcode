@@ -57,17 +57,19 @@ function octoFlashes (inputArr, steps) {
       octoGrid = octoGrid.map((x,y) => x.map(y => y+1))
 
       for(var f = 0; f<9; f++) {
-        if(flashed.length = 0) {
-            break;
-        }
-              else {
-          flashCheck(octoGrid, flashed)
-          flashes = flashes +(flashed.length)
-          adjacentFlashes(flashed, octoGrid)
-          flashed = []
-          flashCheck(octoGrid, flashed)
-          flashes = flashes +(flashed.length)
-        }
+				flashed = []
+        flashCheck(octoGrid, flashed)
+				if(flashed.length == 0) {
+					break;
+				}
+        flashes = flashes +(flashed.length)
+        adjacentFlashes(flashed, octoGrid)
+        flashed = []
+        flashCheck(octoGrid, flashed)
+				if(flashed.length == 0) {
+					break;
+				}
+        flashes = flashes +(flashed.length)
     }
   }
   return flashes
