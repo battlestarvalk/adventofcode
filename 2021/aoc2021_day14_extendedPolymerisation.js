@@ -7,10 +7,15 @@ tmp_input = input.slice(2)
 
 for(var i=0;i<tmp_input.length;i++) {
     tmp = tmp_input[i].split(' -> ')
-    rules[tmp[0]] = tmp[1]
+    rules[tmp[0]] = [tmp[1], 0]
+}
+
+for(var j=0;j<start_string.length-1;j++) {
+    rules[start_string.substr(j, 2)][1]++
 }
 
 //breaks when steps is 2
+/*
 steps = 1
 tmp_array = []
 start_array = start_string.split('')
@@ -31,3 +36,4 @@ for(var m=0;m<steps;m++) {
 }
 
 start_array
+*/
