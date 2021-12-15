@@ -14,26 +14,16 @@ for(var j=0;j<start_string.length-1;j++) {
     rules[start_string.substr(j, 2)][1]++
 }
 
-//breaks when steps is 2
-/*
-steps = 1
-tmp_array = []
-start_array = start_string.split('')
 
-for(var m=0;m<steps;m++) {
-    for(var k=0;k<start_array.length;k++) {
-        key_string = start_array[k]+start_array[k+1]
-        //console.log(key_string)
-        if(rules.hasOwnProperty(key_string)) {
-            //console.log(rules[key_string])
-            tmp_array.push(start_array[k], rules[key_string])
-        }
-        else {
-            tmp_array.push(start_array[k])
-        }
-    }
-    start_array = tmp_array
+for(pair in rules) {
+    tmp_val = rules[pair][1]
+    tmp_char = rules[pair][0]
+    first_pair = pair.substr(0,1) + tmp_char
+    second_pair = tmp_char + pair.substr(1,2)
+
+    rules[first_pair][1] += tmp_val
+    rules[second_pair][1] += tmp_val
+    rules[pair][1] -= tmp_val
+
 }
 
-start_array
-*/
