@@ -16,8 +16,9 @@ function rangeFinder(oldArr, testArr) {
         }
 
         // if testArr laps the whole range
+	    // BROKEN - if it returns the original range, (oldArr), then negVal is too high. what about returning testArr?
         else { 
-          return [ a[0], a[1] ];
+          return [ b[0], b[1] ];
         }
     }
 
@@ -41,6 +42,7 @@ for(var i=0; i<input.length;i++) {
 }
 
 /*DOESN'T WORK ON LONGER EXAMPLE*/
+/*i=2. range goes -47 to 28. SHOULD GO 7-28*/
 
 //set up variables that shouldn't reset
 // cubes that are switched on
@@ -100,8 +102,14 @@ for(var i = 0; i<reboot.length; i++) {
                 
                 //update the new lit range as appropriate - if off
                 else if(reboot[i]['state'] == 'off') {
-                    cubes[k][j][0] = Math.max(end, cubes[k][j][0])
-                    cubes[k][j][1] = Math.min(start, cubes[k][j][1])
+                    if(range[0] > start) {
+                        cubes[k][j][0] = range[1]
+                    }
+
+                    if(range[0] == start) {
+                        cubes[k][j][1] = range[0]
+                    }
+                    
                 }
                 // we found a range, so no need to push this new range to the dimensions list
 				overlap = true
