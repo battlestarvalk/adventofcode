@@ -52,7 +52,7 @@ cubes = [[],[],[]]
 dimensions = ['X','Y','Z']
 
 // for each instruction
-for(var i = 0; i<reboot.length; i++) {
+for(var i = 0; i<15; i++) {
     // should be fresh each time
     // posVal = off cubes to be switched ON
     posVal = [0,0,0]
@@ -80,10 +80,10 @@ for(var i = 0; i<reboot.length; i++) {
         start = reboot[i]['start'+dim]
         end = reboot[i]['end'+dim]
 
-console.log(i, reboot[i]['state'], dim, start, end, cubes[k].flat())
+console.log(i, reboot[i]['state'], dim, 'start', start, 'end', end, 'cubes', cubes[k].flat())
 
         //distance of lights we want switched ON
-        // using math.max and math.abs to prevent any negative number nonsense
+        // using math.max and math.abs
 		posVal[k] = Math.abs(Math.max(end, start) - Math.min(start)) + 1
         for(var j=0; j<cubes[k].length;j++) {
             overlap = false
@@ -92,6 +92,7 @@ console.log(i, reboot[i]['state'], dim, start, end, cubes[k].flat())
            
             // if it finds a hit
             if(range != 'none') {
+        console.log('found range for', dim, i, j, start, end, 'on lights', range[0], 'off lights', range[1], 'posVal', posVal, 'negVal', negVal)
                 //negative val from the dimension - cubes that are CURRENTLY ON
                 negVal[k] = Math.abs(Math.max(range[0][1], range[0][0]) - Math.min(range[0][1], range[0][0])) + 1
                 //update the new lit range as appropriate - if on
@@ -110,6 +111,7 @@ console.log(i, reboot[i]['state'], dim, start, end, cubes[k].flat())
                     else if(range[1].flat().length > 2) {
                         cubes[k].splice(j, 1)
                         cubes[k].push(range[1][0], range[1][1])
+                        break;
                     }
                 }
                 // we found a range, so no need to push this new range to the dimensions list
@@ -125,7 +127,6 @@ console.log(i, reboot[i]['state'], dim, start, end, cubes[k].flat())
 
     }
 
- 
     //if switching a range on, then switch ON positive cubes MINUS all the currently on
     if(reboot[i]['state'] == 'on') {
         on_cubes += (posVal.reduce((a,b) => a*b) - negVal.reduce((a,b) => a*b))
@@ -136,5 +137,6 @@ console.log(i, reboot[i]['state'], dim, start, end, cubes[k].flat())
         on_cubes -= (negVal.reduce((a,b) => a*b))
     }
 
+console.log(i, 'end of turn', cubes.flat())
 }
 on_cubes
