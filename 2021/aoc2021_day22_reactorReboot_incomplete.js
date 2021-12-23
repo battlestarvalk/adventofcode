@@ -7,18 +7,19 @@ function rangeFinder(oldArr, testArr) {
     if(Math.max(a[0], b[0]) - Math.min(a[1], b[1]) <= 0) {
         //if lower range overlap (testArr starts below oldArr and ends inside)
         if(a[0] >= b[0] && a[1] >= b[1]) {
-            return [ a[0], b[1] ];
+            //[on, off]
+            return [ [a[0], b[1]], [b[1], a[1]] ];
         }
 
         //if upper range overlap (testArr starts inside oldArr and ends above)
         else if(b[0] >= a[0] && b[1] >= a[1] ) {
-            return [ b[0], a[1] ];
+            //[on, off]
+            return [ [b[0], a[1]], [a[0], b[0]] ];
         }
 
         // if testArr laps the whole range
-	    // BROKEN - if it returns the original range, (oldArr), then negVal is too high. what about returning testArr?
         else { 
-          return [ b[0], b[1] ];
+          return [ [ b[0], b[1] ], [ [ a[0], b[0] ], [ b[1], a[1] ] ] ];
         }
     }
 
@@ -41,8 +42,6 @@ for(var i=0; i<input.length;i++) {
     reboot[i] = {string: instr[0], state:instr[1], startX:Number(instr[2]), endX:Number(instr[3]), startY:Number(instr[4]), endY:Number(instr[5]), startZ:Number(instr[6]), endZ:Number(instr[7])}
 }
 
-/*DOESN'T WORK ON LONGER EXAMPLE*/
-/*i=2. range goes -47 to 28. SHOULD GO 7-28*/
 
 //set up variables that shouldn't reset
 // cubes that are switched on
@@ -53,7 +52,7 @@ cubes = [[],[],[]]
 dimensions = ['X','Y','Z']
 
 // for each instruction
-for(var i = 0; i<reboot.length; i++) {
+for(var i = 0; i<12; i++) {
     // should be fresh each time
     // posVal = off cubes to be switched ON
     posVal = [0,0,0]
@@ -66,6 +65,7 @@ for(var i = 0; i<reboot.length; i++) {
             dim = dimensions[k]
             cubes[k].push([reboot[i]['start'+dim], reboot[i]['end'+dim]])
             posVal[k] = (reboot[i]['end'+dim] - reboot[i]['start'+dim]) + 1
+
         }
         // first round is always on, no overlaps to worry about
         on_cubes += posVal.reduce((a,b) => a*b)
@@ -84,44 +84,61 @@ for(var i = 0; i<reboot.length; i++) {
         // using math.max and math.abs to prevent any negative number nonsense
 		posVal[k] = Math.abs(Math.max(end, start) - Math.min(start)) + 1
 
-        //we want to account for EVERY overlap
-		overlap = false
-        for(var j=0; j<cubes[k].length;j++) {
-            // feed in each lit range and push out the currently lit range
-            range = rangeFinder(cubes[k][j], [start, end])
+        ranges = 0
 
+        if(cubes[k].length > 1) {
+            for(var j=0; j<cubes[k].length; j++) {
+                range = rangeFinder(cubes[k][j], [start, end])
+                console.log(range)
+                ranges++
+            }
+        }
+
+        if(cubes[k].length == 1 || ranges == 1) {
+            // feed in each lit range and push out the currently lit range
+            range = rangeFinder(cubes[k][0], [start, end])
+  
             // if it finds a hit
             if(range != 'none') {
                 //negative val from the dimension - cubes that are CURRENTLY ON
-                negVal[k] = Math.abs(Math.max(range[1], range[0]) - Math.min(range[1], range[0])) + 1
+                negVal[k] = Math.abs(Math.max(range[0][1], range[0][0]) - Math.min(range[0][1], range[0][0])) + 1
                 //update the new lit range as appropriate - if on
                 if(reboot[i]['state'] == 'on') {
-                    cubes[k][j][0] = Math.min(start, cubes[k][j][0])
-                    cubes[k][j][1] = Math.max(end, cubes[k][j][1])
+                    cubes[k][0][0] = Math.min(start, cubes[k][0][0])
+                    cubes[k][0][1] = Math.max(end, cubes[k][0][1])
                 }
                 
                 //update the new lit range as appropriate - if off
                 else if(reboot[i]['state'] == 'off') {
-                    if(range[0] > start) {
-                        cubes[k][j][0] = range[1]
+                    if(range[1].flat().length == 2) {
+                        cubes[k][0][0] = range[1][0]
+                        cubes[k][0][1] = range[1][1]
                     }
 
-                    if(range[0] == start) {
-                        cubes[k][j][1] = range[0]
+                    else if(range[1].flat().length > 2) {
+                        cubes[k].splice(j, 1)
+                        cubes[k].push(range[1][0], range[1][1])
                     }
-                    
                 }
                 // we found a range, so no need to push this new range to the dimensions list
 				overlap = true
             }
-    	}
-        //got to the end of the ranges and couldn't find a result? new lit range!
-        if(overlap == false) {
-            cubes[k].push([start, end]) 
+
+            else if(range == 'none') {
+               cubes[k].push([start, end]) 
+            }
         }
+
+//ISSUE: need to figure out how to "rejoin" ranges - pull all overlapping ranges, slice out of original, place in lowest/highest?
+        else if(ranges > 1) {
+         console.log('multiple ranges', ranges, cubes[k], start, end)
+        break;
+        }
+
     }
-    
-    //if switching a range on, then switch ON positive cubes MINUS all the currently on 
+
+ 
+    //if switching a range on, then switch ON positive cubes MINUS all the currently on
     if(reboot[i]['state'] == 'on') {
         on_cubes += (posVal.reduce((a,b) => a*b) - negVal.reduce((a,b) => a*b))
     }
@@ -132,3 +149,4 @@ for(var i = 0; i<reboot.length; i++) {
     }
 
 }
+on_cubes
