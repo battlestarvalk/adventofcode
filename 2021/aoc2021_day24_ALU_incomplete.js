@@ -11,8 +11,6 @@ function ALUBuilder (array, input_val) {
     input_val = String(input_val).split('').map(Number)
 
     j = 0
-    input_instr = false
-    repeat_input = false
     
     for(var i=0; i<array.length;i++) {
 
@@ -25,18 +23,10 @@ function ALUBuilder (array, input_val) {
         }
 
 
-        if(instr == 'inp') {
-            if(input_instr) {
-                    repeat_input = true;
-                }
-                else {
-                    ALU[first_var] = input_val[j];
-                    input_instr = true;
-                }
-        }
-
         switch(instr) {
             case 'inp': 
+                ALU[first_var] = input_val[j];
+                j++;
                 break;
             case 'add':
                 ALU[first_var] += sec_var;
@@ -45,12 +35,10 @@ function ALUBuilder (array, input_val) {
                 ALU[first_var] *= sec_var;
                 break;
             case 'div':
-                if(sec_var < 1) {break;}
-                else {ALU[first_var] /= sec_var;}
+                ALU[first_var] /= sec_var;
                 break;
             case 'mod':
-                if(ALU[first_var] < 0) {break;}
-                else {ALU[first_var] %= sec_var;}
+                ALU[first_var] %= sec_var;
                 break;
             case 'eql':
                 ALU[first_var] = (ALU[first_var] == sec_var) ? 1 : 0;
@@ -60,16 +48,11 @@ function ALUBuilder (array, input_val) {
                 break;
         }
 
-        if(repeat_input) {
-            repeat_input = false
-            j++
-            ALU[first_var] = input_val[j]
-        }
-
     }
 
-    return ALU
+    return ALU['z']
 }
+
 
 submarine = 99999999999999
 sub_array = String(submarine).split('').map(Number)
@@ -81,8 +64,9 @@ for(var n=0; n<9; n++) {
             tmp_sub--
             new_num = (k==0) ? Number([tmp_sub, sub_array.slice(1)].flat().join('')) : ([sub_array.slice(0,k-1), tmp_sub, sub_array.slice(k)].flat().join(''))
             console.log(new_num, ALUBuilder(input, new_num))
-            if(ALUBuilder(input, new_num)['z'] == 0) {console.log('FOUND', new_num); break;}
+            if(ALUBuilder(input, new_num) == 0) {console.log('FOUND', new_num); break;}
         }
         sub_array[k]--
     }
 }
+
