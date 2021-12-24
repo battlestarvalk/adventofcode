@@ -74,13 +74,14 @@ function ALUBuilder (array, input_val) {
 submarine = 99999999999999
 sub_array = String(submarine).split('').map(Number)
 
-for(var k=0; k<15; k++) {
-   tmp_sub = sub_array[k]
-    for(var m=0; m<sub_array[k]-1; m++) {
-        tmp_sub--
-        console.log(tmp_sub)
-        new_num = (k==0) ? Number([tmp_sub, sub_array.slice(1)].flat().join('')) : ([sub_array.slice(0,k-1), tmp_sub, sub_array.slice(k)].flat().join(''))
-        console.log(new_num)
+for(var n=0; n<9; n++) {
+    for(var k=0; k<14; k++) {
+       tmp_sub = sub_array[k]
+        for(var m=0; m<sub_array[k]-1; m++) {
+            tmp_sub--
+            new_num = (k==0) ? Number([tmp_sub, sub_array.slice(1)].flat().join('')) : ([sub_array.slice(0,k-1), tmp_sub, sub_array.slice(k)].flat().join(''))
+            console.log(new_num)
+        }
+        sub_array[k]--
     }
-    sub_array[k]--
 }
