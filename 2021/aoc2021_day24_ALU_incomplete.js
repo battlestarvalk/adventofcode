@@ -72,13 +72,15 @@ function ALUBuilder (array, input_val) {
 }
 
 submarine = 99999999999999
-for(var k=0; k<100; k++) {
-   if(/0/.test(submarine)) {submarine--; continue;}
-   
-   target = ALUBuilder(input, submarine)['z']
+sub_array = String(submarine).split('').map(Number)
 
-   if(target == 0) {console.log(submarine); break;}
-   
-   submarine--
-    
+for(var k=0; k<15; k++) {
+   tmp_sub = sub_array[k]
+    for(var m=0; m<sub_array[k]-1; m++) {
+        tmp_sub--
+        console.log(tmp_sub)
+        new_num = (k==0) ? Number([tmp_sub, sub_array.slice(1)].flat().join('')) : ([sub_array.slice(0,k-1), tmp_sub, sub_array.slice(k)].flat().join(''))
+        console.log(new_num)
+    }
+    sub_array[k]--
 }
