@@ -80,7 +80,8 @@ for(var n=0; n<9; n++) {
         for(var m=0; m<sub_array[k]-1; m++) {
             tmp_sub--
             new_num = (k==0) ? Number([tmp_sub, sub_array.slice(1)].flat().join('')) : ([sub_array.slice(0,k-1), tmp_sub, sub_array.slice(k)].flat().join(''))
-            console.log(new_num)
+            console.log(new_num, ALUBuilder(input, new_num))
+            if(ALUBuilder(input, new_num)['z'] == 0) {console.log('FOUND', new_num); break;}
         }
         sub_array[k]--
     }
