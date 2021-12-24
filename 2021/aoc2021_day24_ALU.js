@@ -37,7 +37,6 @@ function ALUBuilder (array, input_val) {
 
         switch(instr) {
             case 'inp': 
-                console.log(i, 'input', input_instr, repeat_input);
                 break;
             case 'add':
                 ALU[first_var] += sec_var;
@@ -70,4 +69,16 @@ function ALUBuilder (array, input_val) {
     }
 
     return ALU
+}
+
+submarine = 99999999999999
+for(var k=0; k<100; k++) {
+   if(/0/.test(submarine)) {submarine--; continue;}
+   
+   target = ALUBuilder(input, submarine)['z']
+
+   if(target == 0) {console.log(submarine); break;}
+   
+   submarine--
+    
 }
