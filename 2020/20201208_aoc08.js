@@ -51,3 +51,86 @@ function breakLoop (inputArray) {
 }
 
 breakLoop(day8_input)
+
+
+//pt 2
+
+const input = document.querySelector('pre').textContent.split('\n').slice(0,-1)
+
+// use find errors to determine if failure/success
+function findErrors (inputArray) {
+  let count = 0,
+      i = 0,
+      duplicateFinder = 0,
+      visited = [];
+
+  for(let i = 0; i < inputArray.length;) {
+      var instructions = inputArray[i].split(" "),
+          action = instructions[0],
+          actionVal = Number(instructions[1]);
+
+      if(duplicateFinder == 1) {
+          return 'looping';
+          break;
+      }
+
+      if(i == inputArray.length-1) {
+          if (action == "acc") {
+              count += actionVal
+          }    
+          console.log(count);
+          return 'success';
+          break;
+      }
+
+      if(visited.includes(i)) {
+          duplicateFinder++
+      }
+
+      else if (action == "nop") {
+          visited.push(i)
+          i++
+      }
+
+      else if (action == "acc") {
+          count += actionVal
+          visited.push(i)
+          i++
+      }
+
+      else if (action == "jmp") {
+          visited.push(i)
+          i += actionVal
+      }
+
+  }
+  
+}
+
+new_inputs = []
+for(var i=0; i<input.length; i++) {
+    var instructions = input[i].split(" "),
+          action = instructions[0],
+          actionVal = instructions[1],
+          tmp_input = input.slice();
+
+    if(action == 'nop') {
+        tmp_input[i] = 'jmp ' + actionVal
+        new_inputs.push([i, tmp_input])
+    }
+
+    if(action == 'jmp') {
+        tmp_input[i] = 'nop ' + actionVal
+        new_inputs.push([i, tmp_input])
+    }
+
+}
+
+
+for(var i=0; i<new_inputs.length;i++) {
+
+    if(findErrors(new_inputs[i][1]) == 'success') {
+        break;
+    }
+
+}
