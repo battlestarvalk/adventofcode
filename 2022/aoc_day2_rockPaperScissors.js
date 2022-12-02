@@ -4,9 +4,6 @@ input = document.querySelector('pre').textContent.split('\n').slice(0,-1);
 function strategyGuide(input) {
 scores = []
 for(var i=0; i<input.length; i++) {
-  input[i].charAt(0)
-  input[i].charAt(2)
-
   playScore = 0
   resultScore = 0
 
@@ -91,9 +88,6 @@ strategyGuide(input)
 function losingStrat(input) {
 scores = []
 for(var i=0; i<input.length; i++) {
-  input[i].charAt(0)
-  input[i].charAt(2)
-
   playScore = 0
   resultScore = 0
 
