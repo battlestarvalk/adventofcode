@@ -4,14 +4,14 @@ const isUpperCase = (string) => /^[A-Z]*$/.test(string)
 /*part one*/
 
 /*
-/*split out the two compartments*/
+//split out contents
 rucksackContents = []
 for(var i=0; i<input.length;i++) {
 splitLoc = (input[i].length / 2)
     rucksackContents.push([input[i].slice(0, splitLoc).split(""), input[i].slice(splitLoc).split("")])
 }
 
-/* find shared items between the two */
+// find shared items between the two
 rucksackShared = []
 for(var i = 0; i<rucksackContents.length; i++) {
 
@@ -19,7 +19,7 @@ rucksackShared.push(    rucksackContents[i][0].filter(element => rucksackContent
 
 }
 
-/* assign value */
+// assign value
 const isUpperCase = (string) => /^[A-Z]*$/.test(string)
 
 contentValue = []
