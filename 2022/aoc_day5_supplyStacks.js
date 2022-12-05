@@ -108,3 +108,34 @@ for(const stack in crateStack) {
 }
 
 topStack.join("")
+
+/*part two*/
+
+instrObj = new Array(instructions.length)
+
+for(var i=0; i<instructions.length;i++) {
+    instr = instructions[i].match(/move ([0-9]+) from ([0-9]+) to ([0-9]+)/)
+    instrObj[i] = {string: instr[0], move:Number(instr[1]), from:Number(instr[2]), to:Number(instr[3])}
+}
+
+for(var i=0; i<instructions.length;i++) {
+    move = instrObj[i]["move"]
+    from =  instrObj[i]["from"]
+    to =  instrObj[i]["to"]
+
+    newFrom = crateStack[from].slice(0,(crateStack[from].length)-move)
+    newTo = crateStack[to].concat(crateStack[from].slice((crateStack[from].length)-move))
+
+    crateStack[to] = newTo
+    crateStack[from] = newFrom
+
+}
+
+crateStack
+
+topStack = []
+for(const stack in crateStack) {
+    topStack.push(crateStack[stack][crateStack[stack].length-1])
+}
+
+topStack.join("")
