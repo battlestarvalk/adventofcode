@@ -2,8 +2,8 @@ var input = document.querySelector('pre').textContent.split('\n').slice(0,-1);
 
 /* auto create */
 
-stacksAvailable = 9
-stackHeight = 8
+stackHeight = input.findIndex(function(a) {return a == ""})-1
+stacksAvailable = Math.floor(input[stackHeight].length / 4)+1
 
 instructions = input.slice(stackHeight+2)
 crates = input.slice(0,stackHeight+1)
