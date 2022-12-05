@@ -79,21 +79,23 @@ for(var i=0; i<crates.length-1; i++) {
     }
 }
 
-/* auto create (doesn't work on input data?) */
+/* auto create */
 
-stacksAvailable = 3
+stacksAvailable = 9
+stackHeight = 8
 
-instructions = input.slice(stacksAvailable+2)
-crates = input.slice(0,stacksAvailable+1)
+instructions = input.slice(stackHeight+2)
+crates = input.slice(0,stackHeight+1)
 
 crateStack = {}
 
-for(var i=0; i<crates.length; i++) {
+for(var i=0; i<crates.length-1; i++) {
     for(var j=1; j<stacksAvailable+1; j++) {
-        if(!crateStack[j]) {
+        if(crateStack[j] == undefined) {
             crateStack[j] = []
         }
-        loc = crates[stacksAvailable].indexOf(String(j))
+        loc = crates[stackHeight].indexOf(String(j))
+        
         if(crates[i].charAt(loc).match(/[A-Z]/g)) {
             crateStack[j].unshift(crates[i].charAt(loc))
         }
