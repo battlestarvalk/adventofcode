@@ -1,6 +1,80 @@
 var input = document.querySelector('pre').textContent.split('\n').slice(0,-1); 
 
-/*test*/
+/* auto create */
+
+stacksAvailable = 9
+stackHeight = 8
+
+instructions = input.slice(stackHeight+2)
+crates = input.slice(0,stackHeight+1)
+
+crateStack = {}
+
+for(var i=0; i<crates.length-1; i++) {
+    for(var j=1; j<stacksAvailable+1; j++) {
+        if(crateStack[j] == undefined) {
+            crateStack[j] = []
+        }
+        loc = crates[stackHeight].indexOf(String(j))
+        
+        if(crates[i].charAt(loc).match(/[A-Z]/g)) {
+            crateStack[j].unshift(crates[i].charAt(loc))
+        }
+    }
+}
+
+// build instructions
+instrObj = new Array(instructions.length)
+
+for(var i=0; i<instructions.length;i++) {
+    instr = instructions[i].match(/move ([0-9]+) from ([0-9]+) to ([0-9]+)/)
+    instrObj[i] = {string: instr[0], move:Number(instr[1]), from:Number(instr[2]), to:Number(instr[3])}
+}
+
+/*part one*/
+// move crates
+for(var i=0; i<instructions.length;i++) {
+    move = instrObj[i]["move"]
+    from =  instrObj[i]["from"]
+    to =  instrObj[i]["to"]
+
+    // new "from" is the from stack minus the removed crates
+    newFrom = crateStack[from].slice(0,(crateStack[from].length)-move)
+    // new "to" is the to stack with the removed crates concatenated (in reverse order, because one at a time)
+    newTo = crateStack[to].concat(crateStack[from].slice((crateStack[from].length)-move).reverse())
+
+    crateStack[to] = newTo
+    crateStack[from] = newFrom
+
+}
+
+/*part two*/
+for(var i=0; i<instructions.length;i++) {
+    move = instrObj[i]["move"]
+    from =  instrObj[i]["from"]
+    to =  instrObj[i]["to"]
+
+    newFrom = crateStack[from].slice(0,(crateStack[from].length)-move)
+    // same as part one but without the reverse
+    newTo = crateStack[to].concat(crateStack[from].slice((crateStack[from].length)-move))
+
+    crateStack[to] = newTo
+    crateStack[from] = newFrom
+
+}
+
+// read off final value and join as string
+topStack = []
+for(const stack in crateStack) {
+    topStack.push(crateStack[stack][crateStack[stack].length-1])
+}
+
+topStack.join("")
+
+topStack.join("")
+
+
+/* long way around
 instructions = input.slice(5)
 crates = input.slice(0,4)
 
@@ -24,9 +98,6 @@ for(var i=0; i<crates.length-1; i++) {
     
 }
 
-
-
-/*real*/
 instructions = input.slice(10)
 crates = input.slice(0,9)
 
@@ -79,91 +150,4 @@ for(var i=0; i<crates.length-1; i++) {
     }
 }
 
-/* auto create */
-
-stacksAvailable = 9
-stackHeight = 8
-
-instructions = input.slice(stackHeight+2)
-crates = input.slice(0,stackHeight+1)
-
-crateStack = {}
-
-for(var i=0; i<crates.length-1; i++) {
-    for(var j=1; j<stacksAvailable+1; j++) {
-        if(crateStack[j] == undefined) {
-            crateStack[j] = []
-        }
-        loc = crates[stackHeight].indexOf(String(j))
-        
-        if(crates[i].charAt(loc).match(/[A-Z]/g)) {
-            crateStack[j].unshift(crates[i].charAt(loc))
-        }
-    }
-}
-
-/*part one*/
-
-// build instructions
-instrObj = new Array(instructions.length)
-
-for(var i=0; i<instructions.length;i++) {
-    instr = instructions[i].match(/move ([0-9]+) from ([0-9]+) to ([0-9]+)/)
-    instrObj[i] = {string: instr[0], move:Number(instr[1]), from:Number(instr[2]), to:Number(instr[3])}
-}
-
-// move crates
-for(var i=0; i<instructions.length;i++) {
-    move = instrObj[i]["move"]
-    from =  instrObj[i]["from"]
-    to =  instrObj[i]["to"]
-
-    // new "from" is the from stack minus the removed crates
-    newFrom = crateStack[from].slice(0,(crateStack[from].length)-move)
-    // new "to" is the to stack with the removed crates concatenated (in reverse order, because one at a time)
-    newTo = crateStack[to].concat(crateStack[from].slice((crateStack[from].length)-move).reverse())
-
-    crateStack[to] = newTo
-    crateStack[from] = newFrom
-
-}
-
-// read off final value and join as string
-topStack = []
-for(const stack in crateStack) {
-    topStack.push(crateStack[stack][crateStack[stack].length-1])
-}
-
-topStack.join("")
-
-/*part two*/
-
-instrObj = new Array(instructions.length)
-
-for(var i=0; i<instructions.length;i++) {
-    instr = instructions[i].match(/move ([0-9]+) from ([0-9]+) to ([0-9]+)/)
-    instrObj[i] = {string: instr[0], move:Number(instr[1]), from:Number(instr[2]), to:Number(instr[3])}
-}
-
-for(var i=0; i<instructions.length;i++) {
-    move = instrObj[i]["move"]
-    from =  instrObj[i]["from"]
-    to =  instrObj[i]["to"]
-
-    newFrom = crateStack[from].slice(0,(crateStack[from].length)-move)
-    // same as part one but without the reverse
-    newTo = crateStack[to].concat(crateStack[from].slice((crateStack[from].length)-move))
-
-    crateStack[to] = newTo
-    crateStack[from] = newFrom
-
-}
-
-crateStack
-
-topStack = []
-for(const stack in crateStack) {
-    topStack.push(crateStack[stack][crateStack[stack].length-1])
-}
-
-topStack.join("")
+*/
