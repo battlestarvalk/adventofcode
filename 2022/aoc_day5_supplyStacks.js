@@ -69,8 +69,7 @@ for(const stack in crateStack) {
     topStack.push(crateStack[stack][crateStack[stack].length-1])
 }
 
-topStack.join("")
-
+// there's the answer
 topStack.join("")
 
 
