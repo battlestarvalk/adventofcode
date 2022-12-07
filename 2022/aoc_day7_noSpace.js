@@ -1,6 +1,6 @@
 //wrong: 123864 // 1205392
 
-var input = document.querySelectorAll('pre')[0].textContent.split('\n').slice(0,-1); 
+var input = document.querySelectorAll('pre')[1].textContent.split('\n').slice(0,-1); 
 
 /* builds directory */
 directory = []
@@ -8,17 +8,12 @@ directory = []
 drive = {}
 
 for(var i=0; i<input.length; i++) {
-    if(/^\$ cd /.test(input[i])) {
+    if(/^\$ cd /.test(input[i])) {    
         dir = input[i].match(/^\$ cd (.+)/)[1]
         if(dir != "..") {
-//if(!(dir in drive)) {
-            drive[dir] = {path: directory.slice(), file_names:[], file_sizes:[], size: 0}
-//}
-            //if(dir != directory[directory.length-1]) {
-                drive[dir]["path"].push(dir) 
-                directory = drive[dir]["path"]
-            //}
-  
+            directory.push(dir)
+            currentFilePath = directory.join("/")
+            drive[currentFilePath] = {path: directory.slice(), file_names:[], file_sizes:[], size: 0}
         }
 
         if(dir == "..") {
@@ -36,24 +31,18 @@ for(var i=0; i<input.length; i++) {
 
             else {
                 if(/^dir/.test(input[j])) {
-                    sub_dir = input[j].match(/^dir (.+)/)[1]
-                    //if(!(sub_dir in drive)) {
-                        drive[sub_dir] = {path: directory.slice(), file_names:[], file_sizes:[], size: 0}
-                   // }
+                    break;
                 }
                  else {
-                     cd = directory[directory.length-1]
+                     cd = directory.join("/")
                      vals = input[j].match(/([0-9]+) ([a-z.]+)/)
 
-                     if(!(drive[cd]["file_names"].includes(vals[2]))) {
-                         drive[cd]["file_names"].push(vals[2])
-                         drive[cd]["file_sizes"].push(vals[1])
+                     drive[cd]["file_names"].push(vals[2])
+                     drive[cd]["file_sizes"].push(vals[1])
                      
-
-                     for(var k=1; k<directory.length+1; k++) {
-                         cd = directory[directory.length-k]
+                     for(var k=0; k<directory.length; k++) {
+                         cd = directory.slice(0, directory.length-k).join("/")
                          drive[cd]["size"] += Number(vals[1])
-                     }
                      }
                  }
             }
@@ -61,10 +50,7 @@ for(var i=0; i<input.length; i++) {
         }  
     }
 
-
 }
-
-drive
 
 small_dirs = []
 for(const dir in drive) {
