@@ -11,7 +11,7 @@ for(var i=0; i<input.length; i++) {
     if(/^\$ cd /.test(input[i])) {
         dir = input[i].match(/^\$ cd (.+)/)[1]
         if(dir != "..") {
-            if(!drive[dir]) {
+            if(!(drive.hasOwnProperty(dir))) {
                 drive[dir] = {path: directory, file:[], size: 0}
             }
             //drive[dir]["path"] += dir
