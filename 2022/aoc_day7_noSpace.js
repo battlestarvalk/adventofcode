@@ -1,4 +1,6 @@
-var input = document.querySelectorAll('pre')[1].textContent.split('\n').slice(0,-1); 
+//wrong: 123864 // 1205392
+
+var input = document.querySelectorAll('pre')[0].textContent.split('\n').slice(0,-1); 
 
 /* builds directory */
 directory = []
@@ -9,15 +11,13 @@ for(var i=0; i<input.length; i++) {
     if(/^\$ cd /.test(input[i])) {
         dir = input[i].match(/^\$ cd (.+)/)[1]
         if(dir != "..") {
-              
-            if(!(dir in drive)) {
-                drive[dir] = {path: directory.slice(), file_names:[], file_sizes:[], size: 0}
-            }
-
-            if(dir != directory[directory.length-1]) {
+//if(!(dir in drive)) {
+            drive[dir] = {path: directory.slice(), file_names:[], file_sizes:[], size: 0}
+//}
+            //if(dir != directory[directory.length-1]) {
                 drive[dir]["path"].push(dir) 
                 directory = drive[dir]["path"]
-            }
+            //}
   
         }
 
@@ -37,9 +37,9 @@ for(var i=0; i<input.length; i++) {
             else {
                 if(/^dir/.test(input[j])) {
                     sub_dir = input[j].match(/^dir (.+)/)[1]
-                    if(!(sub_dir in drive)) {
+                    //if(!(sub_dir in drive)) {
                         drive[sub_dir] = {path: directory.slice(), file_names:[], file_sizes:[], size: 0}
-                    }
+                   // }
                 }
                  else {
                      cd = directory[directory.length-1]
