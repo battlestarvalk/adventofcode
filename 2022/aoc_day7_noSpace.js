@@ -2,22 +2,19 @@ var input = document.querySelectorAll('pre')[1].textContent.split('\n').slice(0,
 
 /* builds directory */
 directory = []
-//directory = ""
 
 drive = {}
 
 for(var i=0; i<input.length; i++) {
-// has issue - saves the whole array to the directory??
     if(/^\$ cd /.test(input[i])) {
         dir = input[i].match(/^\$ cd (.+)/)[1]
         if(dir != "..") {
-            if(!(drive.hasOwnProperty(dir))) {
-                drive[dir] = {path: directory, file:[], size: 0}
+            if(!(dir in drive)) {
+                drive[dir] = {path: directory.slice(), file:[], size: 0}
             }
-            //drive[dir]["path"] += dir
+
             drive[dir]["path"].push(dir) 
             directory = drive[dir]["path"]
-
         }
 
         if(dir == "..") {
@@ -36,8 +33,8 @@ for(var i=0; i<input.length; i++) {
             else {
                 if(/^dir/.test(input[j])) {
                     sub_dir = input[j].match(/^dir (.+)/)[1]
-                    if(!drive[sub_dir]) {
-                        drive[sub_dir] = {path: directory, file:[], size: 0}
+                    if(!(sub_dir in drive)) {
+                        drive[sub_dir] = {path: directory.slice(), file:[], size: 0}
                     }
                 }
                  else {
@@ -54,6 +51,7 @@ for(var i=0; i<input.length; i++) {
 
         }  
     }
+
 
 }
 
