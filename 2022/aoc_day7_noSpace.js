@@ -40,8 +40,11 @@ for(var i=0; i<input.length; i++) {
                  else {
                      cd = directory[directory.length-1]
                      vals = input[j].match(/([0-9]+) ([a-z.]+)/)
-                     drive[cd]["file"].push([vals[2], vals[1]])
-                     
+
+                     if(!(drive[cd]["file"].includes([vals[2], vals[1]]))) {
+                         drive[cd]["file"].push([vals[2], vals[1]])
+                     }
+
                      for(var k=1; k<directory.length+1; k++) {
                          cd = directory[directory.length-k]
                          drive[cd]["size"] += Number(vals[1])
