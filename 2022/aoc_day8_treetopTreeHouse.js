@@ -12,6 +12,11 @@ for(var i = 0; i<column_prep.length; i++) {
 rows_grid = rows.map(x => x.split("")).map((x,y) => x.map(y => Number(y)))
 column_grid = column.map(x => x.split("")).map((x,y) => x.map(y => Number(y)))
 
+forest_height = column_grid.length
+forest_width = rows_grid.length
+
+//part one
+
 function findMaxTrees(arr) {
     max = []
     tallTree = Math.max(...arr)
@@ -22,9 +27,6 @@ function findMaxTrees(arr) {
     }
     return max
 }
-
-forest_height = column_grid.length
-forest_width = rows_grid.length
 
 interior_visible = 0
 
@@ -75,7 +77,8 @@ for(var i=1; i<forest_width-1; i++) {
 
 interior_visible + (2*forest_width) + (2*(forest_height-2))
 
-//NEEDS FIXING
+//part two
+scenic = []
 for(var i=1; i<forest_width-1; i++) {
     for(var j=1; j<forest_height-1; j++) {
         tree = rows_grid[i][j]
@@ -87,10 +90,12 @@ for(var i=1; i<forest_width-1; i++) {
         low_array = column_grid[j].slice(i+1, forest_width+1).findIndex(x => (x >= tree))
 
         tallest[0] += left_array == -1 ? j : left_array+1
-        tallest[1] += right_array == -1 ? (forest_width-j) : right_array+1
+        tallest[1] += right_array == -1 ? ((forest_width-1)-j) : right_array+1
         tallest[2] += top_array == -1 ? i : top_array+1
-        tallest[3] += low_array == -1 ? (forest_height-i) : low_array+1
+        tallest[3] += low_array == -1 ? ((forest_height-1)-i) : low_array+1
 
-        console.log(i, j, tallest, tallest.reduce((a,b) => a*b))
+        scenic.push(tallest.reduce((a,b) => a*b))
     }
 }
+
+Math.max(...scenic)
