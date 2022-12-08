@@ -74,3 +74,23 @@ for(var i=1; i<forest_width-1; i++) {
 }
 
 interior_visible + (2*forest_width) + (2*(forest_height-2))
+
+//NEEDS FIXING
+for(var i=1; i<forest_width-1; i++) {
+    for(var j=1; j<forest_height-1; j++) {
+        tree = rows_grid[i][j]
+        tallest = [0,0,0,0]
+
+        left_array = rows_grid[i].slice(0, j).reverse().findIndex(x => (x >= tree))
+        right_array = rows_grid[i].slice(j+1, forest_width+1).findIndex(x => (x >= tree))
+        top_array = column_grid[j].slice(0, i).reverse().findIndex(x => (x >= tree))
+        low_array = column_grid[j].slice(i+1, forest_width+1).findIndex(x => (x >= tree))
+
+        tallest[0] += left_array == -1 ? j : left_array+1
+        tallest[1] += right_array == -1 ? (forest_width-j) : right_array+1
+        tallest[2] += top_array == -1 ? i : top_array+1
+        tallest[3] += low_array == -1 ? (forest_height-i) : low_array+1
+
+        console.log(i, j, tallest, tallest.reduce((a,b) => a*b))
+    }
+}
