@@ -39,31 +39,31 @@ for(var i=1; i<forest_width-1; i++) {
         low_array = column_grid[j].slice(i, forest_width+1)
 
         if(tree == Math.max(...left_array)) {
-            if(Math.min(...findMaxTrees(left_array)) == i) {
-              //  console.log("tallest on the left", i, j, rows_grid[i][j], left_array)
+            if(Math.min(...findMaxTrees(left_array)) == j) {
+               // console.log("tallest on the left", i, j, rows_grid[i][j], left_array)
                 tallest++
             }
         }
 
         if(tree == Math.max(...right_array)) {
-            if(Math.max(...findMaxTrees(right_array))+i == i) {
-              //  console.log("tallest on the right", i, j, rows_grid[i][j], right_array)
+            if(Math.max(...findMaxTrees(right_array))+j == j) {
+                //console.log("tallest on the right", i, j, rows_grid[i][j], right_array)
                 tallest++
             }
         }
 
         if(tree == Math.max(...top_array)) {
             if(Math.min(...findMaxTrees(top_array)) == i) {
-              //  console.log("tallest above", i, j, column_grid[j][i], top_array, Math.min(...findMaxTrees(top_array)), j)
+                //console.log("tallest above", i, j, column_grid[j][i], top_array, Math.min(...findMaxTrees(top_array)), j)
                 tallest++
             }
         }
 
         if(tree == Math.max(...low_array)) {
             if(Math.max(...findMaxTrees(low_array))+i == i) {
-             //   console.log("tallest below", i, j, column_grid[j][i], low_array)
-            }
-            tallest++
+                //console.log("tallest below", i, j, column_grid[j][i], low_array)
+                tallest++
+            }    
         }
 
         if(tallest > 0) {
@@ -74,5 +74,3 @@ for(var i=1; i<forest_width-1; i++) {
 }
 
 interior_visible + (2*forest_width) + (2*(forest_height-2))
-
-//2601 = too high
