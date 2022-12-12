@@ -9,4 +9,4 @@ for(var i = 0; i<input.length; i++) {
 
 input
 
-//flood fill??
+//dijkstra - breadth-first search
