@@ -45,7 +45,7 @@ for(var i=0; i<input.length; i++) {
         correct_order = 0
         for(var j=0; j<left.length; j++) {
             if(left[j] > right[j]) {
-                break;
+                continue;
             }
             else {
                 correct_order++
@@ -68,6 +68,5 @@ for(var i=0; i<input.length; i++) {
     }
 }
 
-correct_index
-
+correct_index.reduce((a,b) => a+b)
 //6722 too high
