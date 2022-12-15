@@ -37,3 +37,17 @@ for(var i = 0;i< input.length;i++) {
 map = new Array(map_height+1).fill('.').map(x => x = new Array(map_width+1).fill('.'))
 
 input.forEach(x => {map[x[1]][x[0]] = "S"; map[x[3]][x[2]] = "B";})
+
+
+//need to deal with diamonds being off-center
+for(var i=0; i<sensors.length; i++) {
+    x = sensors[i][0]
+    y = sensors[i][1]
+    distance = beacon_distances[i]
+
+    for(var j=0; j<=distance; j++) {
+        console.log(i, j)
+        diamond = new Array((distance-j)*2 + 1).fill("#")
+        map[y-j].splice(x-distance, distance, diamond)
+    }
+}
