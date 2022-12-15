@@ -24,6 +24,16 @@ map_top = Math.min(...map_y)
 map_width = map_end - map_start
 map_height = map_bottom - map_top
 
+sensors = []
+for(var i = 0;i< input.length;i++) {
+    input[i][0] += Math.abs(map_start)
+    input[i][1] += Math.abs(map_top)
+    input[i][2] += Math.abs(map_start)
+    input[i][3] += Math.abs(map_top)
+
+    sensors.push([input[i][0], input[i][1]])
+}
+
 map = new Array(map_height+1).fill('.').map(x => x = new Array(map_width+1).fill('.'))
 
-input.forEach(x => {console.log(x); map[x[0]][x[1]] = "S"; map[x[2]][x[3]] = "B";})
+input.forEach(x => {map[x[1]][x[0]] = "S"; map[x[3]][x[2]] = "B";})
