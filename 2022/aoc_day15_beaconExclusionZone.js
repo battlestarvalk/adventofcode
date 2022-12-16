@@ -38,18 +38,20 @@ map = new Array(map_height+1).fill('.').map(x => x = new Array(map_width+1).fill
 
 input.forEach(x => {map[x[1]][x[0]] = "S"; map[x[3]][x[2]] = "B";})
 
-
-//need to deal with diamonds being off-center
 beacon_locations = []
 diamond = []
-for(var i=0; i<sensors.length; i++) {
+for(var i=6; i<7; i++) {
     x = sensors[i][0]
     y = sensors[i][1]
     distance = beacon_distances[i]
-    diamond.push(Array((distance)*2 + 1).fill())
+    //diamond.push(Array((distance)*2 + 1).fill())
 
     for(var j=0; j<=distance; j++) {
-        diamond.push([y-j, x-distance])
+        for(var k=0; k<=distance; k++) {
+            if (Math.abs(x-k)+Math.abs(y-j) < distance) {
+                map[y+j][x+k] = "#"
+                //map[y-j][x-k] = "#"
+            } 
+        }
     }
 }
-diamond
