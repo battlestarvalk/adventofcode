@@ -44,17 +44,21 @@ for(var i=6; i<7; i++) {
     x = sensors[i][0]
     y = sensors[i][1]
     distance = beacon_distances[i]
-    //diamond.push(Array((distance)*2 + 1).fill())
+    
 
     for(var j=0; j<=distance; j++) {
         for(var k=0; k<=distance; k++) {
-            if (Math.abs(x-k)+Math.abs(y-j) < distance) {
+            if (Math.abs(k-x) + Math.abs(j-y) >= distance) {
                 map[y+j][x+k] = "#"
-                //map[y-j][x-k] = "#"
+                map[y-j][x-k] = "#"
+                map[y-j][x+k] = "#"
+                map[y+j][x-k] = "#"
+                diamond.push([y+j, x+k],[y-j, x-k],[y-j, x+k],[y+j, x-k])
             } 
         }
     }
 }
+map
 
 //http://jsfiddle.net/truefreestyle/Suww8/
 
