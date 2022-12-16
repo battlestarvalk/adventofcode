@@ -55,3 +55,20 @@ for(var i=6; i<7; i++) {
         }
     }
 }
+
+//http://jsfiddle.net/truefreestyle/Suww8/
+
+diamond = []
+function setDiamond (speed, center_x, center_y) {
+    
+    for (i = 0; i < map_height+1; i++) {
+        for (j = 0; j < map_width+1; j++) {
+            distance = Math.abs(i - center_x) + Math.abs(j - center_y);
+            if (distance <= speed) {
+                diamond.push([i, j]);
+            }
+        } 
+    }    
+}
+
+setDiamond(9, 8, 7);
