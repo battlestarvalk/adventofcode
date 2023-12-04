@@ -21,6 +21,7 @@ for(var i=0;i<input.length;i++) {
         }  
 }
 
+//part one
 impossible = []
 for(var i=0; i<gameObj.length;i++) {
     maxBlue = Math.max(...gameObj[i]['blue'])
@@ -45,3 +46,13 @@ for(var i=0; i<possible.length; i++) {
     sumIDs += Number(possible[i]['game'])
 }
 sumIDs
+
+// part two
+cubePower = []
+for(var i=0; i<gameObj.length; i++) {
+    minBlue = Math.max(...gameObj[i]['blue'])
+    minGreen = Math.max(...gameObj[i]['green'])
+    minRed = Math.max(...gameObj[i]['red'])
+    cubePower.push(minBlue*minRed*minGreen)
+}
+cubePower.reduce((a,b) => a+b)
