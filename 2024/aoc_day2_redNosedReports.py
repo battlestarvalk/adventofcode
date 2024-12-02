@@ -12,7 +12,7 @@ file_pt1['6-7'] = file_pt1[7] - file_pt1[6]
 
 file_pt1['range_test_1'] = ((file_pt1[['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7']].abs() > 3)).any(axis=1)
 file_pt1['range_test_2'] = ((file_pt1[['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7']].abs() == 0)).any(axis=1)
-file_pt1['negative_test']  = file_pt1[['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7']].gt(0).sum(axis=1)
+file_pt1['negative_test']  = file_pt1[['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7']].ge(0).sum(axis=1)
 file_pt1['positive_test']  = file_pt1[['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7']].le(0).sum(axis=1)
 
 # file_pt1
