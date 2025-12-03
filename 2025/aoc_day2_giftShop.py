@@ -19,7 +19,16 @@ def find_invalid(x):
 
   for y in range(0, (loop)+1):
     # create a potential repeating ID within the range (so 9 -> 99, 10 -> 1010, 11 -> 1111)
-    working_val = int(str(y+lower_half)*2)
+    # this is a horrible way of doing it
+    if variation:
+      z = str(lower_half)
+      if z[:len(z)//2] == '':
+        id = 0
+      else:
+        id = z[:len(z)//2]
+      working_val = int(str(y+int(id))*2)
+    else:
+      working_val = int(str(y+lower_half)*2)
     if(int(lower) <= working_val and working_val <= int(upper)):
     # check if it is in range and push to array if so
       invalid_id.append(working_val)
@@ -29,5 +38,3 @@ test_df['range'].apply(find_invalid)
 
 # sum invalid IDs.
 sum(invalid_id)
-
-# this has a bug where for 99-100 it creates a repeating ID that's too high (so 100100 instead of 1010), so need to account for that
