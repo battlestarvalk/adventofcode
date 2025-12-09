@@ -18,3 +18,21 @@ for item in input:
 
   voltage.append(int(highest_val + second_highest))
 sum(voltage)
+
+# part two
+valid_joltages = []
+for joltage in input:
+  new_str = joltage
+  batteries = 12
+  remaining_batteries = batteries
+  valid_battery = ''
+
+  for item in range(batteries):
+    str_sorted = sorted(new_str, reverse=True)
+    valid_val = next(x for x in str_sorted if new_str.find(x) <= len(new_str)-remaining_batteries)
+    valid_battery = valid_battery + valid_val
+    new_str = new_str[new_str.find(valid_val)+1:]
+    remaining_batteries = remaining_batteries - 1
+  
+  valid_joltages.append(valid_battery)
+sum(map(int, valid_joltages))
