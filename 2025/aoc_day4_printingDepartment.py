@@ -39,3 +39,4 @@ def find_space(factory_floor):
 
       blockers = 0
   return accessible
+find_space(factory_floor)
